@@ -3,6 +3,7 @@ var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
+var Sequelize = require("sequelize");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
