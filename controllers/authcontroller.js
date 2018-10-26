@@ -13,8 +13,6 @@ exports.signin = function (req, res) {
   var title = {
     pageTitle : "Sign IN"};
   res.render("signin", title);
-  res.render('signin');
-
 }
 
 
