@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var express = require('express');
 var app = express();
 var passport = require('passport');
@@ -7,6 +8,11 @@ var env = require('dotenv').load();
 var exphbs = require('express-handlebars');
 
 
+=======
+//require("dotenv").config();
+var express = require("express");
+var exphbs = require("express-handlebars");
+>>>>>>> 8397929c6e26cb497c5b94c3bd606de19c01a942
 
 var db = require("./models");
 
