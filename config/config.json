@@ -1,14 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-<<<<<<< HEAD
+    "password": "password",
     "database": "next_db",
     "host": "localhost",
-=======
-    "database": "database_development",
-    "host": "127.0.0.1",
->>>>>>> afb50b562e149d4e035110b3239510ec8e736107
     "dialect": "mysql"
   },
   "test": {
