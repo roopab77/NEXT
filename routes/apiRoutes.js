@@ -1,20 +1,28 @@
 var db = require("../models");
 
-module.exports = function(app){
+module.exports = function (app) {
   // Create all our routes and set up logic within those routes where required.
-  app.get("/", function(req, res) {
+  app.get("/", function (req, res) {
     res.render("index", {});
   });
 
-  app.get("/signin", function(req,res){
-    res.render("signin",{});
+  app.get("/signin", function (req, res) {
+    res.render("signin", {});
   });
 
-  app.post("/signup",function(req,res){
-    res.render("signout",{});
+  app.post("/signup", function (req, res) {
+    res.render("signout", {});
   });
 
+  app.post("/add", function (req, res) {
+    res.render("add", {});
+  });
 
+  app.get("/review",function(req,res){
+    res.render("review",{});
+  });
 
-
+  app.post("/review",function(req,res){
+    res.render("review",{});
+  });
 }
