@@ -2,6 +2,11 @@ var db = require("../models");
 
 module.exports = function(app) {
   // Get all examples
+  // Create all our routes and set up logic within those routes where required.
+  app.get("/", function(req, res) {
+    res.render("index", {});
+  });
+}
   app.get("/api/Users", function(req, res) {
     db.Users.findAll({}).then(function(dbUsers) {
       res.json(dbUsers);
@@ -15,10 +20,4 @@ module.exports = function(app) {
     });
   });
 
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.json(dbExample);
-    });
-  });
-};
+  
