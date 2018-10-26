@@ -1,46 +1,20 @@
 {
-  "name": "node-handlebars-boilerplate",
+  "name": "NEXT",
   "version": "1.0.0",
-  "description": "Project 2 Starter",
+  "description": "",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "lint": "eslint **/*.js --quiet",
-    "fix": "eslint --fix .",
-    "test": "npm run lint && NODE_ENV=test mocha -u tdd --reporter spec --exit"
-  },
-  "license": "ISC",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.18.3",
-    "dotenv": "^6.0.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
-<<<<<<< HEAD
     "express-session": "^1.15.6",
     "mysql2": "^1.6.1",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-=======
-<<<<<<< HEAD
-    "mysql2": "^1.6.1",
-=======
-    "mysql2": "^1.5.3",
->>>>>>> a0bfa50ab290af895f8d37473bb2d9c1a2cc1e91
->>>>>>> afb50b562e149d4e035110b3239510ec8e736107
     "sequelize": "^4.41.0"
   },
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.2",
-    "mocha": "^5.2.0",
-    "prettier": "^1.13.7"
-  },
-  "directories": {
-    "test": "test"
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -48,6 +22,7 @@
   },
   "keywords": [],
   "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/roopab77/NEXT/issues"
   },
