@@ -1,26 +1,18 @@
-<<<<<<< HEAD
-var express = require('express');
-var app = express();
-var passport = require('passport');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var env = require('dotenv').load();
-var exphbs = require('express-handlebars');
-
-
-=======
 //require("dotenv").config();
 var express = require("express");
 var exphbs = require("express-handlebars");
->>>>>>> 8397929c6e26cb497c5b94c3bd606de19c01a942
 
 var db = require("./models");
 
 var app = express();
+var passport = require("passport");
+var session = require("express-session");
+var bodyParser = require("body-parser");
 var PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.urlencoded({
+ 
   extended: false
 }));
 app.use(express.json());
@@ -33,7 +25,7 @@ app.use(bodyParser.json());
 // For Passport
 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: "keyboard cat",
   resave: true,
   saveUninitialized: true
 })); // session secret
@@ -52,9 +44,13 @@ app.engine(
 app.set("view engine", "handlebars");
 
 //Routes
-var authRoute = require('./app/routes/auth.js')(app);
+var authRoute = require('./routes/auth.js')(app,passport);
+
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+require('./config/passport/passport.js')(passport, db.Users);
+// require("./routes/auth")(app);
+
 
 var syncOptions = {
   force: false
