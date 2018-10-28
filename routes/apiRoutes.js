@@ -8,20 +8,39 @@ module.exports = function (app) {
     res.render("index", title);
   });
 
-  // app.get("/signin", function (req, res) {
-  //   res.render("signin", {});
-  // });
+  app.get("/signin", function (req, res) {
+    res.render("signin", {});
+  });
 
-  // app.post("/signup", function (req, res) {
-  //   var title = {
-  //     pageTitle : "Sign UP"};
-  //   res.render("signup", title);
-  // });
+  app.post("/signup", function (req, res) {
+    var title = {
+      pageTitle : "Sign UP"};
+    res.render("signup", title);
+  });
 
   app.post("/add", function (req, res) {
     res.render("add", {});
   });
 
- 
+  app.get("/trips", function (req, res) {
+    var title = {
+      pageTitle : "Add a Trip"};
+    res.render("trips", title);
 
+  })
+  // app.post("/api/newtrip", function(req, res) {
+  //   db.Trips.create(req.body)
+  //   .then(function(dbTrips) {
+  //     console.log(dbTrips)
+  //     res.json(dbTrips);
+  //   });
+  // });
 }
+
+
+
+
+  
+  
+
+  
