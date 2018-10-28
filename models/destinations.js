@@ -35,26 +35,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW,
       allowNull: false
-    },
-    completed: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
-    TripstartDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: false
-    },
-    TripendDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: false
     }
   });
 
   Destinations.associate = function (models) {
     // We're saying that a Post should belong to an Author
     // A Post can't be created without an Author due to the foreign key constraint
-    Destinations.belongsTo(models.Users, {
+    Destinations.belongsTo(models.Trips, {
       foreignKey: {
         allowNull: false
       }
