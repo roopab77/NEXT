@@ -23,3 +23,9 @@ exports.dashboard = function (req, res) {
   res.render('dashboard');
 
 }
+
+exports.addTrip = function (req, res) {
+  var title = {
+    pageTitle : "Add a Trip"};
+  res.render("trip", title);
+}
