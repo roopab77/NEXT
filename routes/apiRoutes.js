@@ -1,7 +1,8 @@
 var db = require("../models");
 var authController = require('../controllers/authcontroller.js');
 
-var  ensureLoggedIn          = require("connect-ensure-login").ensureLoggedIn;
+
+var  ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
 module.exports = function (app, passport) {
   // Create all our routes and set up logic within those routes where required.
 
@@ -16,12 +17,12 @@ module.exports = function (app, passport) {
   app.post("/api/trips", function (req, res) {
     console.log("I made it to app.post")
     console.log(req.user);
-    req.body.UserId = 1;
+    req.body.UserId = req.user.id;
     // req.user.id => req.body.UserId = req.user.id
     console.log(req.body);
     db.Trips.create(req.body)
       .then(function (dbTrips) {
-        console.log(dbTrips)
+        //console.log(dbTrips)
         res.json(dbTrips);
       });
   });
