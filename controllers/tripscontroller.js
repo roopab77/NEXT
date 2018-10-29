@@ -2,6 +2,7 @@ var db = require("../models");
 var authController = require('../controllers/authcontroller.js');
 
 
+
 var  ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
 module.exports = function (app, passport) {
   // Create all our routes and set up logic within those routes where required.
@@ -23,22 +24,6 @@ module.exports = function (app, passport) {
     db.Trips.create(req.body)
       .then(function (dbTrips) {
         //console.log(dbTrips)
-        res.json(dbTrips);
-      });
-  });
-
-  //This route is to  trops in the database.
-  app.get("/api/newtrips", function(req, res) {
-    console.log(res.body);
-    var newTrip = {
-      tripName: $("#tripName").val().trim(),
-      // devoured: false
-      tripStartDate: $("#tripStartDate"),
-      tripEndDate: $("#tripEndDate")
-    }
-      db.Trips.create(newTrip)
-      .then(function (dbTrips) {
-        console.log(dbTrips)
         res.json(dbTrips);
       });
   });
@@ -69,10 +54,25 @@ app.get("/destinations/countries", function(req, res) {
 
   //This is the my profile route which will work only when signed in 
   app.get("/my-profile",ensureLoggedIn('/signin'), function (req, res) {
-    var title = {
-      pageTitle : "My Profile"};
-    res.render("my-profile", title);
+    // var title = {
+    //   pageTitle : "My Profile"
+    // };
+    // res.render("my-profile", title);
+    db.Trips.findAll({
+      where: {
+        UserId: req.user.id
+      }
+    }).then(function(dbTrips) {
+      // res.json(dbTrips);
+      var trips_obj = { 
+        trips: dbTrips, 
+        title: "My Profile"
+      };
+      res.render("my-profile", trips_obj);
+    });    
   });
+
+
  
   //This route is just to get the user name to be displayed when logged in
   app.get("/loggedIn", function (req, res) {
