@@ -9,9 +9,10 @@ console.log("I made it to trips.js")
     console.log("made it to button click")
     event.preventDefault();
     var newTrip = {
-      tripName: $("#tripName"),
-      tripStartDate: $("#tripStartDate"),
-      tripEndDate: $("#tripEndDate")
+
+      tripName: $("#tripName").val().trim(),
+      tripStartDate: $("#tripStartDate").val(),
+      tripEndDate: $("#tripEndDate").val()
       // dateFrom: $("#dateFrom"),
       // dateTo: $("#dateTo"),
       // country: $("destinationCountry"),
@@ -20,7 +21,7 @@ console.log("I made it to trips.js")
     };
     $.ajax("/api/trips", {
       type: "POST",
-      data: JSON.stringify(newTrip)
+      data: newTrip
     }).then(
       function () {
         console.log("created new trip");

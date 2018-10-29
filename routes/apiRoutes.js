@@ -1,7 +1,5 @@
 var db = require("../models");
 
-
-
 module.exports = function (app) {
   // Create all our routes and set up logic within those routes where required.
   app.get("/", function (req, res) {
@@ -70,6 +68,10 @@ module.exports = function (app) {
 
   app.post("/api/trips", function (req, res) {
     console.log("I made it to app.post")
+    console.log(req.user);
+    req.body.UserId = 1;
+    // req.user.id => req.body.UserId = req.user.id
+    console.log(req.body);
     db.Trips.create(req.body)
       .then(function (dbTrips) {
         console.log(dbTrips)
