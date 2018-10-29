@@ -51,7 +51,16 @@ module.exports = function (app, passport) {
     res.render("index", title);
   });
 
-
+//This route would pull the countries from the database
+app.get("/destinations/countries", function(req, res) {
+   db.countries.findAll({}).then(function(dbCountries) {
+    res.json(dbCountries);
+         
+    });
+    
+  });
+  
+ 
   app.get("/add-trips", function (req, res) {
     var title = {
       pageTitle : "Add a Trip"};
