@@ -26,12 +26,27 @@ module.exports = function (app) {
 
 
   app.get("/trips", function (req, res) {
+  app.get("/add-trips", function (req, res) {
     var title = {
       pageTitle: "Add a Trip"
     };
     res.render("trips", title);
+  });
 
   })
+  app.get("/my-profile", function (req, res) {
+    var title = {
+      pageTitle : "My Profile"};
+    res.render("my-profile", title);
+  });
+  // app.post("/api/newtrip", function(req, res) {
+  //   db.Trips.create(req.body)
+  //   .then(function(dbTrips) {
+  //     console.log(dbTrips)
+  //     res.json(dbTrips);
+  //   });
+  // });
+}
 
   app.get("/destinations", function (req, res) {
     var title = {
@@ -78,4 +93,3 @@ module.exports = function (app) {
         res.json(dbTrips);
       });
   });
-}
