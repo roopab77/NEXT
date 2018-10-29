@@ -28,10 +28,10 @@ module.exports = function (app) {
     res.render("trips", title);
   });
 
-  app.get("/my-trips", function (req, res) {
+  app.get("/my-profile", function (req, res) {
     var title = {
-      pageTitle : "My Trips"};
-    res.render("my-trips", title);
+      pageTitle : "My Profile"};
+    res.render("my-profile", title);
   });
   // app.post("/api/newtrip", function(req, res) {
   //   db.Trips.create(req.body)
