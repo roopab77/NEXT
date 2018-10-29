@@ -18,6 +18,7 @@ module.exports = function (app, passport) {
       return next();
     res.redirect('/signin');
   }
+  app.get('/logout',authController.logout);
 }
 
 

@@ -2,6 +2,7 @@ var db = require("../models");
 var authController = require('../controllers/authcontroller.js');
 
 
+
 var  ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
 module.exports = function (app, passport) {
   // Create all our routes and set up logic within those routes where required.
@@ -62,7 +63,16 @@ module.exports = function (app, passport) {
     res.render("index", title);
   });
 
-
+//This route would pull the countries from the database
+app.get("/destinations/countries", function(req, res) {
+   db.countries.findAll({}).then(function(dbCountries) {
+    res.json(dbCountries);
+         
+    });
+    
+  });
+  
+ 
   app.get("/add-trips", function (req, res) {
     var title = {
       pageTitle : "Add a Trip"};
@@ -71,10 +81,25 @@ module.exports = function (app, passport) {
 
   //This is the my profile route which will work only when signed in 
   app.get("/my-profile",ensureLoggedIn('/signin'), function (req, res) {
-    var title = {
-      pageTitle : "My Profile"};
-    res.render("my-profile", title);
+    // var title = {
+    //   pageTitle : "My Profile"
+    // };
+    // res.render("my-profile", title);
+    db.Trips.findAll({
+      where: {
+        UserId: req.user.id
+      }
+    }).then(function(dbTrips) {
+      // res.json(dbTrips);
+      var trips_obj = { 
+        trips: dbTrips, 
+        title: "My Profile"
+      };
+      res.render("my-profile", trips_obj);
+    });    
   });
+
+
  
   //This route is just to get the user name to be displayed when logged in
   app.get("/loggedIn", function (req, res) {
