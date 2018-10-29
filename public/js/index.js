@@ -9,6 +9,7 @@
        //alert("here");
        $("#sign-up-btn").attr("style", "display:none");
        $("#sign-in-btn").attr("style", "display:none");
+       $("#my-profile-btn").text (data.firstname + " " + data.lastname);
      }
    });
 
