@@ -30,3 +30,8 @@
            alert("Trip added succesfully");
          });
      });
+//Sign UP
+$("#sign-up-btn").on("click",function(){
+  
+  
+})
