@@ -1,20 +1,16 @@
 //require("dotenv").config();
 var express = require("express");
 var exphbs = require("express-handlebars");
-
 var db = require("./models");
-
 var app = express();
 var passport = require("passport");
 var session = require("express-session");
 var bodyParser = require("body-parser");
+
 var PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.urlencoded({
- 
-  extended: false
-}));
+app.use(express.urlencoded({  extended: false}));
 app.use(express.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({
@@ -44,9 +40,9 @@ app.engine(
 app.set("view engine", "handlebars");
 
 //Routes
-var authRoute = require('./routes/auth.js')(app,passport);
+var authRoute = require('./routes/auth.js')(app, passport);
 
-require("./routes/apiRoutes")(app);
+require("./routes/apiRoutes")(app,passport);
 
 require('./config/passport/passport.js')(passport, db.Users);
 // require("./routes/auth")(app);

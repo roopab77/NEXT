@@ -1,5 +1,15 @@
-//Sign UP
-$("#sign-up-btn").on("click",function(){
-  
-  
-})
+ 
+ $.ajax({
+   type: "GET",
+   url: "/loggedIn"
+ }).then(
+   function (data) {
+     console.log("This is the UserName", data);
+     if (data.id) {
+       //alert("here");
+       $("#sign-up-btn").attr("style", "display:none");
+       $("#sign-in-btn").attr("style", "display:none");
+     }
+   });
+
+ 
