@@ -13,11 +13,7 @@ console.log("I made it to trips.js")
       tripName: $("#tripName").val().trim(),
       tripStartDate: $("#tripStartDate").val(),
       tripEndDate: $("#tripEndDate").val()
-      // dateFrom: $("#dateFrom"),
-      // dateTo: $("#dateTo"),
-      // country: $("destinationCountry"),
-      // state: $("destinationState"),
-      // city: $("destinationCity"),
+     
     };
     $.ajax("/api/trips", {
       type: "POST",
@@ -25,9 +21,10 @@ console.log("I made it to trips.js")
     }).then(
       function () {
         console.log("created new trip");
-        console.log(data);
+        //console.log(data);
+        $("#message").text("Trip Added Succesfully");
         // Reload the page to get the updated list
-        location.reload();
+        //location.reload();
       });
   })
 });
