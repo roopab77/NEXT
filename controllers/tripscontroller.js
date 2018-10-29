@@ -13,6 +13,18 @@ module.exports = function (app, passport) {
     res.render('trips', { pageTitle: "Add a Trip" });
   });
 
+  app.get("/destinations", function (req, res) {
+    var title = {
+      pageTitle : "Add Destinations"};
+    res.render("destinations", title);
+  });
+
+  app.get("/reviews", function (req, res) {
+    var title = {
+      pageTitle : "Add Reviews"};
+    res.render("reviews", title);
+  });
+
   //This route would create new trips 
   app.post("/api/trips", function (req, res) {
     console.log("I made it to app.post")
@@ -27,19 +39,18 @@ module.exports = function (app, passport) {
       });
   });
 
-  //This route is to  trops in the database.
-  app.get("/api/newtrips", function(req, res) {
-    console.log(res.body);
-    var newTrip = {
-      tripName: $("#tripName").val().trim(),
-      // devoured: false
-      tripStartDate: $("#tripStartDate"),
-      tripEndDate: $("#tripEndDate")
-    }
-      db.Trips.create(newTrip)
-      .then(function (dbTrips) {
-        console.log(dbTrips)
-        res.json(dbTrips);
+  //This route would create new trips 
+  app.post("/api/review", function (req, res) {
+    console.log("I made it to app.post for reviews")
+    // console.log(req.user);
+    // req.body.UserId = req.user.id;
+    req.body.DestinationId = 3
+    // req.user.id => req.body.UserId = req.user.id
+    console.log(req.body);
+    db.Reviews.create(req.body)
+      .then(function (dbReviews) {
+        //console.log(dbTrips)
+        res.json(dbReviews);
       });
   });
 

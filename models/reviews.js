@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Reviews.associate = function (models) {
-    // We're saying that a reviews should belong to an destinations
+    // We're saying that a reviews should belong to destinations
     // A review can't be created without a destinations due to the foreign key constraint
     Reviews.belongsTo(models.Destinations, {
       foreignKey: {
