@@ -24,8 +24,4 @@ exports.dashboard = function (req, res) {
   res.render('dashboard',title);
 }
 
-// exports.addTrip = function (req, res) {
-//   var title = {
-//     pageTitle : "Add a Trip"};
-//   res.render("trips", title);
-// }
+
