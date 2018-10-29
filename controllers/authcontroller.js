@@ -22,8 +22,8 @@ exports.dashboard = function (req, res) {
 
 }
 
-exports.addTrip = function (req, res) {
-  var title = {
-    pageTitle : "Add a Trip"};
-  res.render("trip", title);
-}
+// exports.addTrip = function (req, res) {
+//   var title = {
+//     pageTitle : "Add a Trip"};
+//   res.render("trips", title);
+// }

@@ -4,7 +4,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        is: ["^[a-z]+$", "i"],
         len: [1]
       }
     },
@@ -24,6 +23,8 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Trips.associate = function (models) {
+    // We're saying that a DESTINATIONS should belong to a trip
+    // A trip can't be created without a user due to the foreign key constraint
 
     Trips.hasMany(models.Destinations, {
       onDelete: "cascade"
