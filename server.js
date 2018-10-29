@@ -46,7 +46,8 @@ app.set("view engine", "handlebars");
 //Routes
 var authRoute = require('./routes/auth.js')(app,passport);
 
-require("./routes/apiRoutes")(app);
+// require("./routes/apiRoutes")(app);
+require("./controllers/tripscontroller.js")(app);
 
 require('./config/passport/passport.js')(passport, db.Users);
 // require("./routes/auth")(app);

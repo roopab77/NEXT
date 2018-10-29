@@ -54,12 +54,11 @@ module.exports = function (app) {
     res.render("destinations", title);
 
   })
-
+ 
   app.get("/api/newtrips", function(req, res) {
     console.log(res.body);
     var newTrip = {
       tripName: $("#tripName").val().trim(),
-      // devoured: false
       tripStartDate: $("#tripStartDate"),
       tripEndDate: $("#tripEndDate")
     }
