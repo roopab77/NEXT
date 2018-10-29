@@ -19,13 +19,13 @@ module.exports = function (sequelize, DataTypes) {
     },
     tripEndDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      //allowNull: false
     }
   });
 
   Trips.associate = function (models) {
-    // We're saying that a Post should belong to an Author
-    // A Post can't be created without an Author due to the foreign key constraint
+    // We're saying that a DESTINATIONS should belong to a trip
+    // A trip can't be created without a user due to the foreign key constraint
     Trips.hasMany(models.Destinations, {
       onDelete: "cascade"
     });
