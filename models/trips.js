@@ -23,12 +23,9 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Trips.associate = function (models) {
-<<<<<<< HEAD
     // We're saying that a DESTINATIONS should belong to a trip
     // A trip can't be created without a user due to the foreign key constraint
-=======
 
->>>>>>> 3cecfccd2aa67d8bbb056683ac4bda8b12ddfda3
     Trips.hasMany(models.Destinations, {
       onDelete: "cascade"
     });
