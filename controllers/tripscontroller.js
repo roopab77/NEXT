@@ -40,7 +40,7 @@ module.exports = function (app, passport) {
       });
   });
 
-  //This route would create new trips 
+  //This route would create new reviews 
   app.post("/api/review", function (req, res) {
     console.log("I made it to app.post for reviews")
     // console.log(req.user);
@@ -92,8 +92,6 @@ app.get("/destinations/countries", function(req, res) {
       res.render("my-profile", render_obj);
     });    
   });
-
-
  
   //This route is just to get the user name to be displayed when logged in
   app.get("/loggedIn", function (req, res) {
@@ -109,6 +107,8 @@ app.get("/destinations/countries", function(req, res) {
       username: username
     });
   });
+  
+
 }
 
 function isLoggedIn(req, res, next) {
