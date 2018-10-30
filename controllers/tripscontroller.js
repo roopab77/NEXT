@@ -15,17 +15,28 @@ module.exports = function (app, passport) {
   });
 
   //This route would create new trips 
-  app.post("/api/trips", function (req, res) {
-    console.log("I made it to app.post")
-    console.log(req.user);
+  app.post("/api/trips", function (req, res) {   
     req.body.UserId = req.user.id;
-    // req.user.id => req.body.UserId = req.user.id
-    console.log(req.body);
+    // req.user.id => req.body.UserId = req.user.id   
     db.Trips.create(req.body)
-      .then(function (dbTrips) {
-        //console.log(dbTrips)
+      .then(function (dbTrips) {  
+        console.log(dbTrips);
         res.json(dbTrips);
+        
       });
+  });
+
+  //This route would create new destinations 
+  app.post("/destinations", function (req, res) {      
+    db.Destinations.create(req.body)
+      .then(function (dbDestinations) {  
+        console.log(dbDestinations);
+        res.json(dbDestinations);
+              });
+  });
+  //This route would pull add destinations page
+  app.get("/destinations",function(req,res){
+    res.render("destinations",{pageTitle : "Add Destinations"});
   });
 
   //This is the root route 
@@ -39,13 +50,22 @@ module.exports = function (app, passport) {
 //This route would pull the countries from the database
 app.get("/destinations/countries", function(req, res) {
    db.countries.findAll({}).then(function(dbCountries) {
-    res.json(dbCountries);
-         
-    });
-    
+    res.json(dbCountries);         
+    });    
   });
   
+  app.get("/destinations/states/:id",function(req,res){
+    db.States.findAll({where: {country_id : req.params.id} }).then(function(dbStates){
+      res.json(dbStates);
+    });
+  });
  
+  app.get("/destinations/cities/:id",function(req,res){
+    db.Cities.findAll({where: {state_id : req.params.id} }).then(function(dbCities){
+      res.json(dbCities);
+    });
+  });
+
   app.get("/add-trips", function (req, res) {
     var title = {
       pageTitle : "Add a Trip"};
@@ -66,14 +86,12 @@ app.get("/destinations/countries", function(req, res) {
       // res.json(dbTrips);
       var trips_obj = { 
         trips: dbTrips, 
-        title: "My Profile"
+        pageTitle: "My Profile"
       };
       res.render("my-profile", trips_obj);
     });    
   });
 
-
- 
   //This route is just to get the user name to be displayed when logged in
   app.get("/loggedIn", function (req, res) {
     res.send(req.user);

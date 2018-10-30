@@ -1,35 +1,31 @@
-<form class="create-form">
-
-  <div class="form-group ml-4">
-    <h4>Destination:</h4><br>
-    <div class="form-group ml-4">
-      <label for="ca">From:</label>
-      <input type="Date" id="dateFrom" name="fromDate">
-      <label for="ca">To:</label>
-      <input type="Date" id="dateTo" name="toDate">
+ <div class="card bg-light mb-3" id="add-destination">
+  <div class="card-header">
+    <h2>Add your Destinations</h2>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title" id="trip-name"></h5>
+    <div class="row" style="margin:10px">
+      <div class="col-6"><label for="ca">From:</label>
+        <input type="Date" id="dateFrom" name="fromDate"></div>
+      <div class="col-6"> <label for="ca">To:</label>
+        <input type="Date" id="dateTo" name="toDate"></div>
     </div>
-    <div class="form-group col-md-4">
-      <label for="inputCountry">Country</label>
-      <select id="destinationCountry" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
+    <div class="form-group">
+      <label for="category">Select Country:</label>
+      <select class="custom-select" id="countries" onchange="getStates(this.options[this.selectedIndex].value)">
       </select>
     </div>
-    <div class="form-group col-md-3">
-      <label for="inputState">State</label>
-      <select id="destinationState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
+    <div class="form-group">
+      <label for="category">Select State:</label>
+      <select class="custom-select" id="states" onchange="getCities(this.options[this.selectedIndex].value)">
       </select>
     </div>
-    <div class="form-group col-md-3">
-      <label for="inputCity">City</label>
-      <select id="destinationCity" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
+    <div class="form-group">
+      <label for="category">Select City:</label>
+      <select class="custom-select" id="cities">
       </select>
     </div>
-    <button type="button" class="btn btn-outline-primary ml-4" id="add">Save and add another destination for the trip</button>
-    <button type="button" class="btn btn-outline-primary ml-2 " id="done">Done!</button><br><br>
-</form>
-</div>
+    <button type="button" class="btn  ml-4" id="add-destination">Add another destination</button>
+    <button type="button" class="btn  ml-2 " id="done-adding">Done!</button>
+  </div>
+</div> 
