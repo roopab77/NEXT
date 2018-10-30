@@ -29,7 +29,7 @@ module.exports = function (app, passport) {
   //This route would create new trips 
   app.post("/api/trips", function (req, res) {
     console.log("I made it to app.post")
-    console.log(req.user);
+    console.log(req.user.id);
     req.body.UserId = req.user.id;
     // req.user.id => req.body.UserId = req.user.id
     console.log(req.body);

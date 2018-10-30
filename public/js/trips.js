@@ -6,21 +6,22 @@ $(document).ready(function () {
 console.log("I made it to trips.js")
 
   $("#save-trip-btn").on("click", function () {
-    console.log("made it to button click")
     event.preventDefault();
+    
     var newTrip = {
-
+      
       tripName: $("#tripName").val().trim(),
       tripStartDate: $("#tripStartDate").val(),
       tripEndDate: $("#tripEndDate").val()
-     
     };
+    console.log(newTrip + "from trips.js trips post");
+
     $.ajax("/api/trips", {
       type: "POST",
       data: newTrip
     }).then(
       function () {
-        console.log("created new trip");
+        console.log("packaged new trip details & sent to server");
         //console.log(data);
         $("#message").text("Trip Added Succesfully");
         $("#add-destination-btn").attr("style", "display:block");
@@ -29,6 +30,7 @@ console.log("I made it to trips.js")
         // Reload the page to get the updated list
         //location.reload();
       });
+
   })
 
   $("#add-destination-btn").on("click", function(){
