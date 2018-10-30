@@ -81,21 +81,15 @@ app.get("/destinations/countries", function(req, res) {
 
   //This is the my profile route which will work only when signed in 
   app.get("/my-profile",ensureLoggedIn('/signin'), function (req, res) {
-    // var title = {
-    //   pageTitle : "My Profile"
-    // };
-    // res.render("my-profile", title);
+    var render_obj = {pageTitle: "My Profile"};
     db.Trips.findAll({
       where: {
         UserId: req.user.id
       }
     }).then(function(dbTrips) {
       // res.json(dbTrips);
-      var trips_obj = { 
-        trips: dbTrips, 
-        title: "My Profile"
-      };
-      res.render("my-profile", trips_obj);
+      render_obj.trips = dbTrips;
+      res.render("my-profile", render_obj);
     });    
   });
 
