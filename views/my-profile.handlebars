@@ -42,6 +42,8 @@
         {{#each trips}}
           {{#if completed}}
             <li class="list-group-item">
+              <a href="#a" class="disabled btn btn-outline-primary" id="complete-btn">Completed</a>
+              <a href="/reviews" class="disabled btn btn-outline-primary" id="add-review-btn">Add a review</a>
               <a href="#a" class="disabled btn btn-outline-primary btn-sm m-0" id="complete-btn">Completed</a>
             </li>
           {{else}}
