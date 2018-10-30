@@ -1,6 +1,8 @@
 .list-group-item {
   line-height: 2.5;
 }
+<<<<<<< HEAD
+=======
 #log-out-btn {
   display: none
 }
@@ -13,3 +15,4 @@ label
 {
   width:140px;
 }
+>>>>>>> 65f8c693bd6cd2f84f053d1917fc4d35cdfe8535

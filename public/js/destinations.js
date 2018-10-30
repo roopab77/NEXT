@@ -1,5 +1,6 @@
 
 $(document).ready(function (){
+  
   $.ajax("/countries", {
     type: "GET"
   }).then(function(data){ 
@@ -77,17 +78,21 @@ function renderitems(data,htmlitem) {
   }
   $(".hidden").removeClass("hidden");
   var rowsToAdd = [];
+  rowsToAdd.push(createRow("..."));
   for (var i = 0; i < data.length; i++) {
+    
     rowsToAdd.push(createRow(data[i]));
   }
   SelectedItem.empty();
   SelectedItem.append(rowsToAdd);
   SelectedItem.val();
+  
 }
 
 function createRow(item) {
   var listOption = $("<option>");
   listOption.attr("value", item.id);
+  
   listOption.text(item.name);
   return listOption;
 }
