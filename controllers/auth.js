@@ -11,14 +11,15 @@ module.exports = function (app, passport) {
   app.get('/dashboard', isLoggedIn, authController.dashboard);
   app.post('/signin', passport.authenticate('local-signin', {
     successReturnToOrRedirect: '/dashboard',
-    failureRedirect: '/signin'
+    failureRedirect: '/signinFailed'
   }));
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
       return next();
-    res.redirect('/signin');
+    res.redirect('/signinFailed');
   }
   app.get('/logout',authController.logout);
+  app.get('/signinFailed', authController.signinFailed);
 }
 
 

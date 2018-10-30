@@ -1,35 +1,58 @@
-<form class="create-form">
+<div class="row" >
+  <div class="col-7">
+    <div class="card bg-light mb-3" id="add-destination" >
 
-  <div class="form-group ml-4">
-    <h4>Destination:</h4><br>
-    <div class="form-group ml-4">
-      <label for="ca">From:</label>
-      <input type="Date" id="dateFrom" name="fromDate">
-      <label for="ca">To:</label>
-      <input type="Date" id="dateTo" name="toDate">
+      <div class="card-header">
+        <h2>Add your Destinations</h2>
+      </div>
+      <div class="row" style="width:100%;margin:5px">
+
+        <div class="col-3">
+          <h5>{{trip_name_from_trips}}</h5>
+        </div>
+        <div class="col-7">
+          <h5>From : {{tripStart_from_trips}} To : {{tripEnd_from_trips}}</h5>
+        </div>
+
+      </div>
+      <h2 id="trip-id" style="display:none">{{trip_id_from_trips}}</h2>
+      <div class="card-body" id="input-destination">
+        <h5 class="card-title" id="trip-name"></h5>
+        <div class="form-group">
+          <label for="category">From</label>
+          <input type="Date" id="dateFrom" name="fromDate"></div>
+        <div class="form-group"><label for="category">To</label>
+          <input type="Date" id="dateTo" name="toDate"></div>
+
+        <div class="form-group">
+          <label>Select Country</label>
+          <select class="custom-select" id="countries" style="width:200px" onchange="getStates(this.options[this.selectedIndex].value)">
+            
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Select State</label>
+          <select class="custom-select" id="states" style="width:200px" onchange="getCities(this.options[this.selectedIndex].value)">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="category">Select City</label>
+          <select class="custom-select" id="cities" style="width:200px">
+          </select>
+        </div>
+        <button type="button" class="btn  ml-4" id="btn-add-destination">Add another destination</button>
+        <a type="button" class="btn  ml-2 " href="/my-profile" id="done-adding">Done!</a>
+      </div>
+
     </div>
-    <div class="form-group col-md-4">
-      <label for="inputCountry">Country</label>
-      <select id="destinationCountry" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
+  </div>
+  <div class="col-5">
+    <div class="card-header" id="added-destinations" >
+      <h2>Added Destinations</h2>
+      <div class="card-body">
+        <ul id="destinations-ul"></ul>
+      </div>
     </div>
-    <div class="form-group col-md-3">
-      <label for="inputState">State</label>
-      <select id="destinationState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <div class="form-group col-md-3">
-      <label for="inputCity">City</label>
-      <select id="destinationCity" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <button type="button" class="btn btn-outline-primary ml-4" id="add">Save and add another destination for the trip</button>
-    <button type="button" class="btn btn-outline-primary ml-2 " id="done">Done!</button><br><br>
-</form>
+  </div>
+</div>
 </div>

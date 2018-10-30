@@ -1,15 +1,9 @@
-// $("#add-trip-btn").on("click", function () {
-
-// })
-
 $(document).ready(function () {
-console.log("I made it to trips.js")
-
+  
   $("#save-trip-btn").on("click", function () {
     event.preventDefault();
     
     var newTrip = {
-      
       tripName: $("#tripName").val().trim(),
       tripStartDate: $("#tripStartDate").val(),
       tripEndDate: $("#tripEndDate").val()
@@ -20,47 +14,20 @@ console.log("I made it to trips.js")
       type: "POST",
       data: newTrip
     }).then(
-      function () {
-        console.log("packaged new trip details & sent to server");
-        //console.log(data);
+      function (response) {
+        console.log("created new trip");
+        console.log(response);
         $("#message").text("Trip Added Succesfully");
-        $("#add-destination-btn").attr("style", "display:block");
-        $("#save-trip-btn").attr("style", "display:none");
-        $("#add-destination").attr("style", "display:block");
-        // Reload the page to get the updated list
-        //location.reload();
+        $("#trip-data").attr("style","display:block");        
+        $("#trip_name").text(response.tripName);
+        $("#from_date").text(response.tripStartDate);
+        $("#to_date").text(response.tripEndDate);
+        $("#add-trip").attr ("style","display:none");
+        sessionStorage.setItem('tripID', response.id);
+        const dest_url = "/destinations/" + response.id + "&" + response.tripName+ "&" + response.tripStartDate + "&" + response.tripEndDate;
+        $("#add-destination-btn").attr("href",dest_url);
       });
 
   })
 
-  $("#add-destination-btn").on("click", function(){
-   alert("ok");
-    $.ajax("/destinations/countries",{
-      type: "GET"
-    }).then(renderCountries);
-
-  });
 });
-
- function renderCountries(data) {
-  var countrySelect = $("#countries");
-  if (!data.length) {
-    window.location.href = "/authors";
-  }
-  $(".hidden").removeClass("hidden");
-  var rowsToAdd = [];
-  for (var i = 0; i < data.length; i++) {
-    rowsToAdd.push(createAuthorRow(data[i]));
-  }
-  countrySelect.empty(); 
-  countrySelect.append(rowsToAdd);
-  countrySelect.val();
-}
-
-// Creates the author options in the dropdown
-function createAuthorRow(country) {
-  var listOption = $("<option>");
-  listOption.attr("value", country.id);
-  listOption.text(country.name);
-  return listOption;
-}

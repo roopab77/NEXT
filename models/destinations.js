@@ -2,29 +2,17 @@ module.exports = function (sequelize, DataTypes) {
   const Destinations = sequelize.define("Destinations", {
     destinationCountry: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: ["^[a-z]+$", "i"],
-        len: [1]
-      }
+      allowNull: false
     },
     destinationState: {
       type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        is: ["^[a-z]+$", "i"],
-        len: [1]
-      }
+      allowNull: true
+     
     },
     destinationCity: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        validate: {
-          is: ["^[a-z]+$", "i"],
-          len: [1]
-        }
-      }
+      allowNull: true
+      
     },
     dateFrom: {
       type: DataTypes.DATEONLY,
