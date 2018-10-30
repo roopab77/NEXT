@@ -38,27 +38,28 @@ console.log("I made it to trips.js")
     }).then(renderCountries);
 
   });
+  function renderCountries(data) {
+    var countrySelect = $("#countries");
+    if (!data.length) {
+      window.location.href = "/authors";
+    }
+    $(".hidden").removeClass("hidden");
+    var rowsToAdd = [];
+    for (var i = 0; i < data.length; i++) {
+      rowsToAdd.push(createAuthorRow(data[i]));
+    }
+    countrySelect.empty(); 
+    countrySelect.append(rowsToAdd);
+    countrySelect.val();
+  }
+  
+  // Creates the author options in the dropdown
+  function createAuthorRow(country) {
+    var listOption = $("<option>");
+    listOption.attr("value", country.id);
+    listOption.text(country.name);
+    return listOption;
+  }
 });
 
- function renderCountries(data) {
-  var countrySelect = $("#countries");
-  if (!data.length) {
-    window.location.href = "/authors";
-  }
-  $(".hidden").removeClass("hidden");
-  var rowsToAdd = [];
-  for (var i = 0; i < data.length; i++) {
-    rowsToAdd.push(createAuthorRow(data[i]));
-  }
-  countrySelect.empty(); 
-  countrySelect.append(rowsToAdd);
-  countrySelect.val();
-}
 
-// Creates the author options in the dropdown
-function createAuthorRow(country) {
-  var listOption = $("<option>");
-  listOption.attr("value", country.id);
-  listOption.text(country.name);
-  return listOption;
-}
