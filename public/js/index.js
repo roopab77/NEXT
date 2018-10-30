@@ -11,6 +11,9 @@
        $("#sign-in-btn").attr("style", "display:none");
        $("#my-profile-btn").text (data.firstname + " " + data.lastname);
      }
+     else {
+      $("#log-out-btn").attr("style", "display:none");
+     }
    });
 
- 
+   

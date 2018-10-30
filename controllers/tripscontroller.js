@@ -14,6 +14,18 @@ module.exports = function (app, passport) {
     res.render('trips', { pageTitle: "Add a Trip" });
   });
 
+  app.get("/destinations", function (req, res) {
+    var title = {
+      pageTitle : "Add Destinations"};
+    res.render("destinations", title);
+  });
+
+  app.get("/reviews", function (req, res) {
+    var title = {
+      pageTitle : "Add Reviews"};
+    res.render("reviews", title);
+  });
+
   //This route would create new trips 
   app.post("/api/trips", function (req, res) {   
     req.body.UserId = req.user.id;
@@ -37,6 +49,20 @@ module.exports = function (app, passport) {
   //This route would pull add destinations page
   app.get("/destinations",function(req,res){
     res.render("destinations",{pageTitle : "Add Destinations"});
+    
+  //This route would create new trips 
+  app.post("/api/review", function (req, res) {
+    console.log("I made it to app.post for reviews")
+    // console.log(req.user);
+    // req.body.UserId = req.user.id;
+    req.body.DestinationId = 3
+    // req.user.id => req.body.UserId = req.user.id
+    console.log(req.body);
+    db.Reviews.create(req.body)
+      .then(function (dbReviews) {
+        //console.log(dbTrips)
+        res.json(dbReviews);
+      });
   });
 
   //This is the root route 
@@ -74,21 +100,15 @@ app.get("/destinations/countries", function(req, res) {
 
   //This is the my profile route which will work only when signed in 
   app.get("/my-profile",ensureLoggedIn('/signin'), function (req, res) {
-    // var title = {
-    //   pageTitle : "My Profile"
-    // };
-    // res.render("my-profile", title);
+    var render_obj = {pageTitle: "My Profile"};
     db.Trips.findAll({
       where: {
         UserId: req.user.id
       }
     }).then(function(dbTrips) {
       // res.json(dbTrips);
-      var trips_obj = { 
-        trips: dbTrips, 
-        pageTitle: "My Profile"
-      };
-      res.render("my-profile", trips_obj);
+      render_obj.trips = dbTrips;
+      res.render("my-profile", render_obj);
     });    
   });
 
