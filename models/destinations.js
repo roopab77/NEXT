@@ -2,43 +2,36 @@ module.exports = function (sequelize, DataTypes) {
   const Destinations = sequelize.define("Destinations", {
     destinationCountry: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: ["^[a-z]+$", "i"],
-        len: [1]
-      }
+      allowNull: false
     },
     destinationState: {
       type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        is: ["^[a-z]+$", "i"],
-        len: [1]
-      }
+      allowNull: true
+     
     },
     destinationCity: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        validate: {
-          is: ["^[a-z]+$", "i"],
-          len: [1]
-        }
-      }
+      allowNull: true
+      
     },
     dateFrom: {
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW,
-      allowNull: false
+      // allowNull: false
     },
     dateTO: {
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW,
-      allowNull: false
+      // allowNull: false
     }
   });
 
   Destinations.associate = function (models) {
+
+    Destinations.hasMany(models.Reviews, {
+      onDelete: "cascade"
+    });
+
     // We're saying that a Post should belong to an Author
     // A Post can't be created without an Author due to the foreign key constraint
     Destinations.belongsTo(models.Trips, {
@@ -46,6 +39,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       }
     });
+
   };
 
   return Destinations;

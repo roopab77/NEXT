@@ -1,82 +1,74 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="row">
 
-    <div class="col-3">
-      <h2>Trip Name</h2>
-      <ul class="list-group">
-        {{#each trips}}
-        <li class="list-group-item">
-          {{tripName}}
-        </li>
-        {{/each}}
-      </ul>
-    </div>
+  <div class="col-3">
+    <h2>Trip Name</h2>
+    <ul class="list-group">
+      {{#each trips}}
+      <li class="list-group-item">
+        {{tripName}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
 
-    <div class="col-3">
-      <h2>Start Date</h2>
-      <ul class="list-group">
-        {{#each trips}}
-        <li class="list-group-item">
-          {{tripStartDate}}
-        </li>
-        {{/each}}
-      </ul>
-    </div>
+  <div class="col-2">
+    <h2>Start Date</h2>
+    <ul class="list-group">
+      {{#each trips}}
+      <li class="list-group-item">
+        {{tripStartDate}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
 
-    <div class="col-3">
-      <h2>End Date</h2>
-      <ul class="list-group">
-        {{#each trips}}
-        <li class="list-group-item">
-          {{tripEndDate}}
-        </li>
-        {{/each}}
-      </ul>
-    </div>
+  <div class="col-2">
+    <h2>End Date</h2>
+    <ul class="list-group">
+      {{#each trips}}
+      <li class="list-group-item">
+        {{tripEndDate}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
 
-    <div class="col-3">
+  <div class="col-5">
 
-      <h2>Completed?</h2>
+    <h2>Status</h2>
 
       <ul class="list-group">
         {{#each trips}}
           {{#if completed}}
-            <li class="list-group-item">
-              <a href="#a" class="disabled btn btn-outline-primary btn-sm m-0" id="complete-btn">Completed</a>
-            </li>
-          {{else}}
-            <li class="list-group-item">
-              <a href="#a" class="btn btn-outline-primary btn-sm m-0" id="complete-btn">Not yet, click to complete</a>
-            </li>
-          {{/if}}  
+          <a class="list-group-item list-group-item-action list-group-item-light disabled" id="complete-btn">Completed</a>
+          {{else}}              
+          
+          <a href="/reviews" class="list-group-item list-group-item-action list-group-item-primary" id="add-review-btn">Pending, click to complete and review</a>
+
+        {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
+
+    <div class="card">
+      <div class="card-header">
+        <h2>My Reviews</h2>
+      </div>
+      <ul class="list-group">
+        {{#each reviews}}
+        <li class="list-group-item">
+          {{titleCategory}} &emsp;
+          {{rating}}
+        </li>
         {{/each}}
+
       </ul>
     </div>
 
   </div>
-
-  <div class="row">
-    <div class="col-12">
-
-      <div class="card">
-        <div class="card-header">
-          <h2>My Reviews</h2>
-        </div>
-        <ul class="list-group">
-          {{#each reviews}}
-              <li class="list-group-item">
-                {{titleCategory}} &emsp;
-                {{rating}}
-              </li>
-          {{/each}}
-
-        </ul>
-      </div>
-      
-
-
-
-    </div>
-  </div>
 </div>
-
