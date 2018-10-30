@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  
   $("#save-trip-btn").on("click", function () {
     event.preventDefault();
     var newTrip = {

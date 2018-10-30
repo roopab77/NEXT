@@ -9,10 +9,10 @@ exports.signup = function (req, res) {
  }
 
 exports.signin = function (req, res) {
+  
   var title = {
-    pageTitle: "Sign IN"
+    pageTitle: "Sign In"
   };
-  console.log("return Url" + req.session.returnTo);
   res.render("signin", title);
 }
 
@@ -33,5 +33,9 @@ exports.logout = function(req, res) {
   });
 
 }
+exports.signinFailed = function (req, res) {
+
+  res.render("signinFailed");
+ }
 
 
