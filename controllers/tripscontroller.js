@@ -1,5 +1,7 @@
 var db = require("../models");
 var authController = require('../controllers/authcontroller.js');
+nodeMailer = require("nodemailer");
+
 
 const Op = require('Sequelize').Op;
 
@@ -30,6 +32,44 @@ module.exports = function (app, passport) {
     res.render("reviews", title);
   });
 
+  app.get('/send-email',
+    ensureLoggedIn('/signin'),
+    function (req, res) {
+      res.render('email', {
+        pageTitle: "Send an email"
+      });
+    });
+
+  app.get('/api/send-email', function (req, res) {
+    //code to send e-mail.
+    console.log(req.query);
+    var mailOptions = {
+      to: req.query.to,
+      subject: req.query.subject,
+      text: req.query.text
+    }
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function (error, response) {
+      if (error) {
+        console.log(error);
+        res.end("error");
+      } else {
+        console.log("Message sent: " + response.message);
+        res.end("sent");
+      }
+    });
+
+  });
+
+  var smtpTransport = nodeMailer.createTransport({
+    service: "gmail",
+    // host: "smtp.gmail.com",
+    auth: {
+      user: "projectnextrutgers@gmail.com",
+      pass: "neXtproject2018"
+    }
+  });
+
   //This route would create new trips 
   app.post("/api/trips", function (req, res) {
     req.body.UserId = req.user.id;
@@ -38,6 +78,7 @@ module.exports = function (app, passport) {
       .then(function (dbTrips) {
         console.log(dbTrips);
         res.json(dbTrips);
+        //This route would create new trips 
 
       });
   });
@@ -76,7 +117,7 @@ module.exports = function (app, passport) {
         //console.log(dbTrips)
         res.json(dbReviews);
       });
-  }); 
+  });
 
   //This is the root route 
   app.get("/", function (req, res) {
@@ -89,7 +130,7 @@ module.exports = function (app, passport) {
         ['createdAt', 'DESC']
       ],
       include: [db.Destinations]
-    }).then(function(dbRecentReviews) {
+    }).then(function (dbRecentReviews) {
       render_obj.reviews = dbRecentReviews;
       res.render("index", render_obj);
 
@@ -137,16 +178,16 @@ module.exports = function (app, passport) {
       where: {
         UserId: req.user.id
       }
-    }).then(function(dbTrips) {
-      var tripsIdArray = dbTrips.map(function(res) {
+    }).then(function (dbTrips) {
+      var tripsIdArray = dbTrips.map(function (res) {
         return res.id;
       })
       db.Destinations.findAll({
         where: {
           TripId: tripsIdArray
         }
-      }).then(function(dbDestinations) {
-        var destIdArray = dbDestinations.map(function(res) {
+      }).then(function (dbDestinations) {
+        var destIdArray = dbDestinations.map(function (res) {
           return res.id;
         })
         db.Reviews.findAll({
@@ -156,8 +197,8 @@ module.exports = function (app, passport) {
           order: [
             ['createdAt', 'DESC']
           ],
-          include:[db.Destinations]
-        }).then(function(dbReviews) { 
+          include: [db.Destinations]
+        }).then(function (dbReviews) {
           var render_obj = {
             pageTitle: "My Profile",
             trips: dbTrips,
@@ -197,7 +238,9 @@ module.exports = function (app, passport) {
           DestinationId: searchedDestinationID
         }
       }).catch(function (err) {
-        return res.status(400).json({ message: "issues trying to connect to database" });
+        return res.status(400).json({
+          message: "issues trying to connect to database"
+        });
       }).then(function (dbReviews) {
         console.log("SEARCHED REVIEW");
         console.log(searchedReview);
@@ -210,7 +253,9 @@ module.exports = function (app, passport) {
 
         res.render("reviewsSearch", hbsObject);
       }).catch(function (err) {
-        return res.status(400).json({ message: "issues trying to connect to database" });
+        return res.status(400).json({
+          message: "issues trying to connect to database"
+        });
       });
     });
   });
@@ -240,8 +285,8 @@ module.exports = function (app, passport) {
       res.json(dbDestinations);
     });
   });
-  
-  
+
+
   app.post("/reviews", function (req, res) {
     db.Reviews.create(req.body)
       .then(function (dbReviews) {
