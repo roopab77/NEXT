@@ -20,7 +20,7 @@ $(document).ready(function (){
       dateTO :  $("#dateTo").val(),
       TripId : tripid
     };
-    //console.log(newDestination);
+    console.log(newDestination);
     $.ajax("/destinations", {
       type: "POST",
       data: newDestination

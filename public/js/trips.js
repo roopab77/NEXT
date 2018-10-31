@@ -3,12 +3,12 @@ $(document).ready(function () {
   $("#save-trip-btn").on("click", function () {
     event.preventDefault();
     
+    console.log()
     var newTrip = {
       tripName: $("#tripName").val().trim(),
       tripStartDate: $("#tripStartDate").val(),
       tripEndDate: $("#tripEndDate").val()
     };
-    console.log(newTrip + "from trips.js trips post");
 
     $.ajax("/api/trips", {
       type: "POST",
