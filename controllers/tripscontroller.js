@@ -162,7 +162,6 @@ module.exports = function (app, passport) {
           var tripsIdArray = dbTrips.map(function(res) {
             return res.id;
           })
-          console.log(`Trips IDs : ${tripsIdArray}`);
           db.Destinations.findAll({
             where: {
               TripId: tripsIdArray
@@ -171,12 +170,15 @@ module.exports = function (app, passport) {
             var destIdArray = dbDestinations.map(function(res) {
               return res.id;
             })
-            console.log(`Dest IDs : ${destIdArray}`);
             db.Reviews.findAll({
               where: {
                 DestinationId: destIdArray
-              }
-            }).then(function(dbReviews) {
+              },
+              order: [
+                ['createdAt', 'DESC']
+              ],
+              include:[db.Destinations]
+            }).then(function(dbReviews) { 
               var render_obj = {
                 pageTitle: "My Profile",
                 trips: dbTrips,
