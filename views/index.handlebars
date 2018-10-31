@@ -1,26 +1,31 @@
-<div class="row">
-  <div class="col-12">
-    <div class="accordion" id="accordionExample">
-      {{#each reviews}}
+  <h2 class="text-center text-white">Recent Reviews</h2>
+  <div class="row">
+    {{#each reviews}}  
+    <div class="col-6">
+  
       <div class="card">
-        <div class="card-header" id="headingOne">
+        <div class="card-header bg-success text-light">
           <h5 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              {{titleCategory}}
-            </button>
+              {{Destination.destinationCity}}, {{Destination.destinationCountry}}
           </h5>
         </div>
-
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            <p>{{review}}</p>
-            <div>{{rating}}</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <h6>Category: {{titleCategory}}</h6>
+            </div>
+        
+            <div class="col-6 text-right">
+              <h6>Rating: {{rating}}</h6>
+            </div>
           </div>
+          
+          <hr>
+          <p>{{review}}</p>
         </div>
+        
       </div>
-      {{/each}}
-      
     </div>
-  </div>
+  {{/each}} 
 </div>
 

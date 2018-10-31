@@ -76,14 +76,24 @@ module.exports = function (app, passport) {
         //console.log(dbTrips)
         res.json(dbReviews);
       });
-  });
+  }); 
 
   //This is the root route 
   app.get("/", function (req, res) {
-    var title = {
+    var render_obj = {
       pageTitle: "New Exciting Trips"
     };
-    res.render("index", title);
+    db.Reviews.findAll({
+      limit: 10,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [db.Destinations]
+    }).then(function(dbRecentReviews) {
+      render_obj.reviews = dbRecentReviews;
+      res.render("index", render_obj);
+
+    });
   });
 
   //This route would pull the countries from the database
@@ -127,25 +137,27 @@ module.exports = function (app, passport) {
       where: {
         UserId: req.user.id
       }
-    }).then(function (dbTrips) {
-      var tripsIdArray = dbTrips.map(function (res) {
+    }).then(function(dbTrips) {
+      var tripsIdArray = dbTrips.map(function(res) {
         return res.id;
       })
-      console.log(`Trips IDs : ${tripsIdArray}`);
       db.Destinations.findAll({
         where: {
           TripId: tripsIdArray
         }
-      }).then(function (dbDestinations) {
-        var destIdArray = dbDestinations.map(function (res) {
+      }).then(function(dbDestinations) {
+        var destIdArray = dbDestinations.map(function(res) {
           return res.id;
         })
-        console.log(`Dest IDs : ${destIdArray}`);
         db.Reviews.findAll({
           where: {
             DestinationId: destIdArray
-          }
-        }).then(function (dbReviews) {
+          },
+          order: [
+            ['createdAt', 'DESC']
+          ],
+          include:[db.Destinations]
+        }).then(function(dbReviews) { 
           var render_obj = {
             pageTitle: "My Profile",
             trips: dbTrips,
@@ -155,8 +167,7 @@ module.exports = function (app, passport) {
         })
       })
     })
-  });
-
+  })
 
 
 
@@ -244,17 +255,3 @@ function isLoggedIn(req, res, next) {
     return next();
   res.redirect('/signin');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

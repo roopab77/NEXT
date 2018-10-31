@@ -1,3 +1,8 @@
+body {
+  font-family: 'Fira Sans', sans-serif;
+  background-image: url(../images/stardust.png)
+}
+
 .list-group-item {
   line-height: 2.5;
 }
@@ -5,8 +10,8 @@
   display: none
 }
 
-.form-group
-{
+.jumbotron {
+  background: #f8f9fa;
 }
 
 label
