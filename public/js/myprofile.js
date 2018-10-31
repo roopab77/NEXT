@@ -1,35 +1,23 @@
 $(document).ready(function () {
 
   $(".get-destinations-all").on("click", function () {
-    var x = $(this).parent().parent();
-    console.log(x);
 
-    if (x) {
-      if (x.attr("style") === "none") {
-        x.attr("style", "block");
-      } else {
-        x.attr("style","none");
-      }
+    const tripID = $(this).val();
+    console.log(tripID);
+    const url = "/getdestinations/" + tripID;
+    var htmlTable = $(this).parent().closest('tr');
+    console.log(htmlTable);
 
-    }
-   
-    {
-      const tripID = $(this).val();
-      console.log(tripID);
-      const url = "/getdestinations/" + tripID;
-      var htmlTable = $(this).parent().closest('tr');
-      console.log(htmlTable);
+    $.ajax(url, {
+      type: "GET"
+    }).then(function (data) {
+      console.log(data);
+      var destinationsTable = createDestTable(data);
+      $("#destinations-table").html(destinationsTable);
 
-      $.ajax(url, {
-        type: "GET"
-      }).then(function (data) {
-        console.log(data);
-        var destinationsTable = createDestTable(data);
-        $("#destinations-table").html(destinationsTable);
+      //htmlTable.append(destinationsTable);
+    });
 
-        //htmlTable.append(destinationsTable);
-      });
-    }
   });
 
   $(document).on('click', ".dropdown-menu li a", function () {
@@ -41,9 +29,9 @@ $(document).ready(function () {
     // alert("This id" + $(this).val());
     const destinationID = $(this).val();
     const category = $(this).parent().parent().find(".review-category").text();
-    const rating = $(this).parent().parent().find(".review-rating").attr("value");
+    const rating = $(this).parent().parent().find(".review-rating").val();
     const review_text = $(this).parent().parent().find(".review-text").val();
-    $(this).parent().parent().find(".review-category").text("Review Category");
+    $(this).parent().parent().find(".review-category").text("Review");
     $(this).parent().parent().find(".review-rating").text("Rating");
     $(this).parent().parent().find(".review-text").val("");
     const spantag = $(this).parent().parent().find(".message");
@@ -53,7 +41,7 @@ $(document).ready(function () {
       rating: rating,
       DestinationId: destinationID
     };
-    //console.log(newDestination);
+    console.log(newReview);
     $.ajax("/reviews", {
       type: "POST",
       data: newReview
@@ -63,17 +51,15 @@ $(document).ready(function () {
         console.log("created new review");
       });
   });
-
-
 });
 
-
 function createDestTable(data) {
-  var tableforDestinations = `<tr><td colspan="3">
-<table class="table table-bordered" value="table-destination" id="destinations-table"><thead><tr><th scope="col">Country/State/City</th>      
+  var tableforDestinations = `
+<table class="table table-bordered table-light" value="table-destination" id="destinations-table"><thead><tr>
+      <th scope="col">Country/State/City</th>      
       <th scope="col">Review Category</th>
       <th scope="col">Rating</th>
-      <th scope="col">Review Text</th>
+      <th scope="col">Review Text</th>      
       <th scope="col">Add Review</th>
       </tr></thead>`;
   data.forEach(destination => {
@@ -81,32 +67,32 @@ function createDestTable(data) {
       <td>${destination.destinationCountry}/${destination.destinationState}/${destination.destinationCity}</td>      
       <td><div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle review-category" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Review Category
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="#">Food</a></li>
-        <li><a class="dropdown-item" href="#">Hotels</a></li>
-        <li><a class="dropdown-item" href="#">Attractions</a></li>
-      </ul>
+      Review<span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><a class="dropdown-item" href="#wrt">Food</a></li>
+      <li><a class="dropdown-item" href="#rwtrwt">Hotels</a></li>
+      <li><a class="dropdown-item" href="#rwtwrt">Attractions</a></li>
+    </ul>
     </div></td>
       <td><div class="dropdown">
+      
       <button class="btn btn-secondary dropdown-toggle review-rating" type="button" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false" >
-        Rating
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" data-value="1">1(Strongly Disagree)</a></li>
-        <li><a class="dropdown-item" data-value="2">2</a></li>
-        <li><a class="dropdown-item" data-value="3">3</a></li>
-        <li><a class="dropdown-item" data-value="4">4</a></li>
-        <li><a class="dropdown-item" data-value="5">5(Strongly Agree)</a></li>
-
-      </ul>
+      aria-expanded="false" >
+      Rating<span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><a class="dropdown-item" data-value="1">1(Strongly Disagree)</a></li>
+      <li><a class="dropdown-item" data-value="2">2</a></li>
+      <li><a class="dropdown-item" data-value="3">3</a></li>
+      <li><a class="dropdown-item" data-value="4">4</a></li>
+      <li><a class="dropdown-item" data-value="5">5(Strongly Agree)</a></li>
+    </ul>
     </div></td>
       <td><textarea class="form-control review-text" aria-label="With textarea"></textarea></td>
       <td><button type="button" value="${destination.id}" class="btn btn-outline-success btn-add-review">Add a Review</button><div><span class="message"></span></div></td>     
       </tr>`;
   });
-  tableforDestinations += '</table></td></tr>';
+  tableforDestinations += '</table>';
   return tableforDestinations;
 }
