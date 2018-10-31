@@ -84,10 +84,11 @@ module.exports = function (app, passport) {
       pageTitle: "New Exciting Trips"
     };
     db.Reviews.findAll({
-      limit: 5,
+      limit: 10,
       order: [
         ['createdAt', 'DESC']
-      ]
+      ],
+      include: [db.Destinations]
     }).then(function(dbRecentReviews) {
       render_obj.reviews = dbRecentReviews;
       res.render("index", render_obj);
