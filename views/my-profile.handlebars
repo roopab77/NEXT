@@ -1,56 +1,23 @@
-<div class="row">
+<div class="row"><div class="col"><table class="table">
+  <thead>
+    <tr>      
+      <th scope="col">Trip Name</th>
+      <th scope="col">From </th>
+      <th scope="col">To</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each trips}}
+    <tr class="trip-data">
+      <th><button  class="btn btn-toggle get-destinations-all" value ={{id}} > {{tripName}}</button></th>
+      <td>{{tripStartDate}}</td>
+      <td>{{tripEndDate}}</td>       
+    </tr>
+       {{/each}}
+  </tbody>
+</table></div><div class="col" id="destinations-table"></div></div>
 
-  <div class="col-3">
-    <h2>Trip Name</h2>
-    <ul class="list-group">
-      {{#each trips}}
-      <li class="list-group-item">
-        {{tripName}}
-      </li>
-      {{/each}}
-    </ul>
-  </div>
 
-  <div class="col-2">
-    <h2>Start Date</h2>
-    <ul class="list-group">
-      {{#each trips}}
-      <li class="list-group-item">
-        {{tripStartDate}}
-      </li>
-      {{/each}}
-    </ul>
-  </div>
-
-  <div class="col-2">
-    <h2>End Date</h2>
-    <ul class="list-group">
-      {{#each trips}}
-      <li class="list-group-item">
-        {{tripEndDate}}
-      </li>
-      {{/each}}
-    </ul>
-  </div>
-
-  <div class="col-5">
-
-    <h2>Status</h2>
-
-      <ul class="list-group">
-        {{#each trips}}
-          {{#if completed}}
-          <a class="list-group-item list-group-item-action list-group-item-light disabled" id="complete-btn">Completed</a>
-          {{else}}              
-          
-          <a href="/reviews" class="list-group-item list-group-item-action list-group-item-primary" id="add-review-btn">Pending, click to complete and review</a>
-
-        {{/if}}
-      {{/each}}
-    </ul>
-  </div>
-
-</div>
 
 <div class="row mt-5">
   <div class="col-12">
