@@ -76,14 +76,23 @@ module.exports = function (app, passport) {
         //console.log(dbTrips)
         res.json(dbReviews);
       });
-  });
+  }); 
 
   //This is the root route 
   app.get("/", function (req, res) {
-    var title = {
+    var render_obj = {
       pageTitle: "New Exciting Trips"
     };
-    res.render("index", title);
+    db.Reviews.findAll({
+      limit: 5,
+      order: [
+        ['createdAt', 'DESC']
+      ]
+    }).then(function(dbRecentReviews) {
+      render_obj.reviews = dbRecentReviews;
+      res.render("index", render_obj);
+
+    });
   });
 
   //This route would pull the countries from the database
@@ -104,24 +113,6 @@ module.exports = function (app, passport) {
     });
   });
 
-      //This is the root route 
-
-  app.get("/", function (req, res) {
-    var render_obj = {
-      pageTitle: "New Exciting Trips"
-    };
-    db.Reviews.findAll({
-      limit: 5,
-      order: [
-        ['createdAt', 'DESC']
-      ]
-    }).then(function(dbRecentReviews) {
-      render_obj.reviews = dbRecentReviews;
-      res.render("index", render_obj);
-
-    });
-  });
-    
   app.get("/cities/:id", function (req, res) {
     db.Cities.findAll({
       where: {
@@ -137,50 +128,6 @@ module.exports = function (app, passport) {
       pageTitle: "Add a Trip"
     };
     res.render("trips", title);
-  });
-
-
-  app.get("/reviews-searching/:search", function (req, res) {
-    var searchedReview = req.params.search
-    console.log("Searched Place");
-    console.log(searchedReview);
-    db.Destinations.findAll({
-      where: {
-        [Op.or]: [{
-          destinationCountry: searchedReview
-        }, {
-          destinationState: searchedReview
-        }, {
-          destinationCity: searchedReview
-        }],
-        // [req.params.destinationtype] : req.params.search
-      }
-
-    }).then(function (searchedDestination) {
-      console.log(searchedDestination);
-      var searchedDestinationID = searchedDestination[0].id
-      console.log("Search Destination ID");
-      console.log(searchedDestinationID);
-      db.Reviews.findAll({
-        where: {
-          DestinationId: searchedDestinationID
-        }
-      }).catch(function (err) {
-        return res.status(400).json({ message: "issues trying to connect to database" });
-      }).then(function (dbReviews) {
-        console.log("SEARCHED REVIEW");
-        console.log(searchedReview);
-        var hbsObject = {
-
-          review: dbReviews
-
-        };
-        console.log("HANDLEBARS OBJ: ", hbsObject);
-        res.render("reviewsSearch", hbsObject);
-      }).catch(function (err) {
-        return res.status(400).json({ message: "issues trying to connect to database" });
-      });
-    });
   });
 
   //This is the my profile route which will work only when signed in 
@@ -221,6 +168,51 @@ module.exports = function (app, passport) {
     })
   })
 
+
+
+  app.get("/reviews-searching/:search", function (req, res) {
+    var searchedReview = req.params.search
+    console.log("Searched Place");
+    console.log(searchedReview);
+    db.Destinations.findAll({
+      where: {
+        [Op.or]: [{
+          destinationCountry: searchedReview
+        }, {
+          destinationState: searchedReview
+        }, {
+          destinationCity: searchedReview
+        }],
+        // [req.params.destinationtype] : req.params.search
+      }
+
+    }).then(function (searchedDestination) {
+      console.log(searchedDestination);
+      var searchedDestinationID = searchedDestination[0].id
+      console.log("Search Destination ID");
+      console.log(searchedDestinationID);
+      db.Reviews.findAll({
+        where: {
+          DestinationId: searchedDestinationID
+        }
+      }).catch(function (err) {
+        return res.status(400).json({ message: "issues trying to connect to database" });
+      }).then(function (dbReviews) {
+        console.log("SEARCHED REVIEW");
+        console.log(searchedReview);
+        var hbsObject = {
+
+          review: dbReviews
+
+        };
+        console.log("HANDLEBARS OBJ: ", hbsObject);
+
+        res.render("reviewsSearch", hbsObject);
+      }).catch(function (err) {
+        return res.status(400).json({ message: "issues trying to connect to database" });
+      });
+    });
+  });
 
 
   //This route is just to get the user name to be displayed when logged in
