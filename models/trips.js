@@ -14,10 +14,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     tripStartDate: {
       type: DataTypes.DATEONLY,
+      defaultValue: DataTypes.NOW,
       allowNull: false
     },
     tripEndDate: {
       type: DataTypes.DATEONLY,
+      defaultValue: DataTypes.NOW,
       allowNull: false
     }
   });

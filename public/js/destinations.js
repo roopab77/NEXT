@@ -20,7 +20,7 @@ $(document).ready(function (){
       dateTO :  $("#dateTo").val(),
       TripId : tripid
     };
-    //console.log(newDestination);
+    console.log(newDestination);
     $.ajax("/destinations", {
       type: "POST",
       data: newDestination
@@ -29,7 +29,13 @@ $(document).ready(function (){
         console.log("created new destination");
         $("#added-destinations").attr("style","display:block");
         createLiTag(response);
-        console.log(response);
+        //console.log(response);
+        $("#dateFrom").val("");
+        $("#dateTo").val("");
+        $("#cities option:selected").text("");
+        $("#states option:selected").text("");
+        $("#countries option:selected").text("");
+
       });
   });
 
@@ -38,8 +44,11 @@ $(document).ready(function (){
 
 function createLiTag(response)
 {
-    var htmlTag = `<li> <h5><div class="row"><div class="col">Destination : ${response.destinationCity}, ${response.destinationState} - ${response.destinationCountry}</div></div><div class="row">
-  <div class="col">From : ${response.dateFrom}</div><div class="col">To: ${response.dateTO}</div><div class="col"></div></div></h5></li>`;
+    var htmlTag = `
+    <li> <h6><div class="row">
+    <div class="col"><span>Destination :</span><span> ${response.destinationCity}, ${response.destinationState} - ${response.destinationCountry}</span></div></div>
+    <div class="row">
+  <div class="col-6">From : ${response.dateFrom}</div><div class="col-6">To: ${response.dateTO}</div><div class="col"></div></div></h6></li>`;
   $("#destinations-ul").append(htmlTag);
 }
 
