@@ -10,10 +10,13 @@ body {
   display: none
 }
 
+<<<<<<< HEAD
+=======
 .jumbotron {
   background: #f8f9fa;
 }
 
+>>>>>>> 686343f7636f8f11e08659c3d267ff2bfd527397
 label
 {
   width:140px;
