@@ -1,6 +1,7 @@
 var db = require("../models");
 var authController = require('../controllers/authcontroller.js');
 nodeMailer = require("nodemailer");
+var htmlToText = require('nodemailer-html-to-text').htmlToText;
 
 
 const Op = require('Sequelize').Op;
@@ -43,12 +44,21 @@ module.exports = function (app, passport) {
   app.get('/api/send-email', function (req, res) {
     //code to send e-mail.
     console.log(req.query);
+
     var mailOptions = {
       to: req.query.to,
       subject: req.query.subject,
-      text: req.query.text
+      html: req.query.text
     }
     console.log(mailOptions);
+    var smtpTransport = nodeMailer.createTransport({
+      service: "gmail",
+      // host: "smtp.gmail.com",
+      auth: {
+        user: "projectnextrutgers@gmail.com",
+        pass: "neXtproject2018"
+      }
+    });
     smtpTransport.sendMail(mailOptions, function (error, response) {
       if (error) {
         console.log(error);
@@ -59,15 +69,9 @@ module.exports = function (app, passport) {
       }
     });
 
-  });
 
-  var smtpTransport = nodeMailer.createTransport({
-    service: "gmail",
-    // host: "smtp.gmail.com",
-    auth: {
-      user: "projectnextrutgers@gmail.com",
-      pass: "neXtproject2018"
-    }
+
+
   });
 
   //This route would create new trips 
