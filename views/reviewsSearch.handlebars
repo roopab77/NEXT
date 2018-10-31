@@ -1,4 +1,26 @@
 
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      
+      <th scope="col">Review Name</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each review}}
+    <tr>
+     <td>{{titleCategory}}</td>
+      <td>{{rating}} / 5</td>
+      <td>{{review}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+  
+  
   <div class="row">
     
 
