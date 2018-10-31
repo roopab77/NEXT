@@ -88,11 +88,22 @@ module.exports = function (app, passport) {
       });
 
       //This is the root route 
+
+      //This is the root route 
       app.get("/", function (req, res) {
-        var title = {
+        var render_obj = {
           pageTitle: "New Exciting Trips"
         };
-        res.render("index", title);
+        db.Reviews.findAll({
+          limit: 5,
+          order: [
+            ['createdAt', 'DESC']
+          ]
+        }).then(function(dbRecentReviews) {
+          render_obj.reviews = dbRecentReviews;
+          res.render("index", render_obj);
+
+        });
       });
 
       //This route would pull the countries from the database
