@@ -1,0 +1,39 @@
+
+  <div class="row">
+    
+
+
+  <div class="col-3">
+    <h2>Review Title</h2>
+    <ul class="list-group">
+      {{#each review}}
+      <li class="list-group-item">
+        {{titleCategory}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="col-2">
+    <h2>Rating</h2>
+    <ul class="list-group">
+      {{#each review}}
+      <li class="list-group-item">
+        {{rating}} / 5
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="col-2">
+    <h2>Comments</h2>
+    <ul class="list-group">
+      {{#each review}}
+      <li class="list-group-item">
+        {{review}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="col-5">
