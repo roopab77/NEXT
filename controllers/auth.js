@@ -20,6 +20,7 @@ module.exports = function (app, passport) {
   }
   app.get('/logout',authController.logout);
   app.get('/signinFailed', authController.signinFailed);
+  // app.get('/reviews-searching/', authController.reviewsSearch);
 }
 
 
