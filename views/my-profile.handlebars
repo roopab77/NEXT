@@ -1,21 +1,24 @@
-<div class="row"><div class="col"><table class="table">
+<table class="table table-active table-condensed" id="myTable">
   <thead>
-    <tr>      
+    <tr>
       <th scope="col">Trip Name</th>
       <th scope="col">From </th>
       <th scope="col">To</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="panel">
     {{#each trips}}
     <tr class="trip-data">
-      <th><button  class="btn btn-toggle get-destinations-all" value ={{id}} > {{tripName}}</button></th>
+      <th><button type="button" class="btn btn-comm get-destinations-all" value={{id}}><i class="fa fa-comments pr-1"></i>
+          {{tripName}}</button></th>
+
       <td>{{tripStartDate}}</td>
-      <td>{{tripEndDate}}</td>       
+      <td>{{tripEndDate}}</td>
     </tr>
-       {{/each}}
+    {{/each}}
   </tbody>
-</table></div><div class="col" id="destinations-table"></div></div>
+</table>
+<div class="col" id="destinations-table" style="width:100%;margin:0px"></div>
 
 
 

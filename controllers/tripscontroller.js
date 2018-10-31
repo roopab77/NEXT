@@ -7,7 +7,9 @@ var ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
 module.exports = function (app, passport) {
     // Create all our routes and set up logic within those routes where required.
 
-    //This route is to render the add trips page. Will work only if logged in
+
+
+     //This route is to render the add trips page. Will work only if logged in
     app.get('/trips',
       ensureLoggedIn('/signin'),
       function (req, res) {
