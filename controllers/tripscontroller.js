@@ -106,21 +106,21 @@ module.exports = function (app, passport) {
 
       //This is the root route 
 
-    app.get("/", function (req, res) {
-      var render_obj = {
-        pageTitle: "New Exciting Trips"
-      };
-      db.Reviews.findAll({
-        limit: 5,
-        order: [
-          ['createdAt', 'DESC']
-        ]
-      }).then(function(dbRecentReviews) {
-        render_obj.reviews = dbRecentReviews;
-        res.render("index", render_obj);
+  app.get("/", function (req, res) {
+    var render_obj = {
+      pageTitle: "New Exciting Trips"
+    };
+    db.Reviews.findAll({
+      limit: 5,
+      order: [
+        ['createdAt', 'DESC']
+      ]
+    }).then(function(dbRecentReviews) {
+      render_obj.reviews = dbRecentReviews;
+      res.render("index", render_obj);
 
-      });
     });
+  });
     
   app.get("/cities/:id", function (req, res) {
     db.Cities.findAll({
@@ -138,44 +138,6 @@ module.exports = function (app, passport) {
     };
     res.render("trips", title);
   });
-
-  //This is the my profile route which will work only when signed in 
-  app.get("/my-profile", ensureLoggedIn('/signin'), function (req, res) {
-    db.Trips.findAll({
-      where: {
-        UserId: req.user.id
-      }
-    }).then(function (dbTrips) {
-      var tripsIdArray = dbTrips.map(function (res) {
-        return res.id;
-      })
-      console.log(`Trips IDs : ${tripsIdArray}`);
-      db.Destinations.findAll({
-        where: {
-          TripId: tripsIdArray
-        }
-      }).then(function (dbDestinations) {
-        var destIdArray = dbDestinations.map(function (res) {
-          return res.id;
-        })
-        console.log(`Dest IDs : ${destIdArray}`);
-        db.Reviews.findAll({
-          where: {
-            DestinationId: destIdArray
-          }
-        }).then(function (dbReviews) {
-          var render_obj = {
-            pageTitle: "My Profile",
-            trips: dbTrips,
-            reviews: dbReviews
-          };
-          res.render("my-profile", render_obj);
-        })
-      })
-    })
-  });
-
-
 
 
   app.get("/reviews-searching/:search", function (req, res) {
