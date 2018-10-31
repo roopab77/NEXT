@@ -2,11 +2,8 @@ module.exports = function (sequelize, DataTypes) {
   const Reviews = sequelize.define("Reviews", {
     titleCategory: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: ["^[a-z]+$", "i"],
-        len: [1, 30]
-      }
+      allowNull: false
+     
     },
     review: {
       type: DataTypes.TEXT,
