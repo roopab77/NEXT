@@ -1,6 +1,6 @@
 var db = require("../models");
 var authController = require('../controllers/authcontroller.js');
-
+nodeMailer = require("nodemailer");
 
 
 var ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
@@ -37,6 +37,44 @@ module.exports = function (app, passport) {
           res.json(dbReviews);
         });
     });
+
+    app.get('/send-email',
+      ensureLoggedIn('/signin'),
+      function (req, res) {
+        res.render('email', {
+          pageTitle: "Send an email"
+        });
+      });
+
+      app.get('/api/send-email', function (req, res) {
+        //code to send e-mail.
+        console.log(req.query);
+        var mailOptions = {
+          to: req.query.to,
+          subject: req.query.subject,
+          text: req.query.text
+        }
+        console.log(mailOptions);
+        smtpTransport.sendMail(mailOptions, function (error, response) {
+          if (error) {
+            console.log(error);
+            res.end("error");
+          } else {
+            console.log("Message sent: " + response.message);
+            res.end("sent");
+          }
+        });
+      
+      });
+
+      var smtpTransport = nodeMailer.createTransport({
+        service: "gmail",
+        // host: "smtp.gmail.com",
+        auth: {
+            user: "projectnextrutgers@gmail.com",
+            pass: "neXtproject2018"
+        }
+      });
 
     //This route would create new trips 
     app.post("/api/trips", function (req, res) {

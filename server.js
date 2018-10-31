@@ -6,6 +6,8 @@ var app = express();
 var passport = require("passport");
 var session = require("express-session");
 var bodyParser = require("body-parser");
+path = require("path");
+nodeMailer = require("nodemailer");
 
 var PORT = process.env.PORT || 3000;
 
@@ -48,6 +50,15 @@ require("./controllers/tripscontroller.js")(app,passport);
 require('./config/passport/passport.js')(passport, db.Users);
 // require("./routes/auth")(app);
 
+// for sending emails
+// var smtpTransport = nodeMailer.createTransport({
+//   service: "gmail",
+//   host: "smtp.gmail.com",
+//   auth: {
+//       user: "seemastunes@gmail.com",
+//       pass: "Bandra50"
+//   }
+// });
 
 var syncOptions = {
   force: false
