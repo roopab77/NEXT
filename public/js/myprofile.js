@@ -55,7 +55,7 @@ $(document).ready(function () {
 
 function createDestTable(data) {
   var tableforDestinations = `
-<table class="table table-bordered" value="table-destination" id="destinations-table"><thead><tr>
+<table class="table table-bordered table-light" value="table-destination" id="destinations-table"><thead><tr>
       <th scope="col">Country/State/City</th>      
       <th scope="col">Review Category</th>
       <th scope="col">Rating</th>

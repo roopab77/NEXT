@@ -1,4 +1,4 @@
-<table class="table table-active table-condensed" id="myTable">
+<table class="table table-light table-condensed " id="myTable">
   <thead>
     <tr>
       <th scope="col">Trip Name</th>
@@ -11,7 +11,6 @@
     <tr class="trip-data">
       <th><button type="button" class="btn btn-comm get-destinations-all" value={{id}}><i class="fa fa-comments pr-1"></i>
           {{tripName}}</button></th>
-
       <td>{{tripStartDate}}</td>
       <td>{{tripEndDate}}</td>
     </tr>
@@ -22,25 +21,29 @@
 
 
 
-<div class="row mt-5">
+<div class="row mt-5" id="my-reviews">
   <div class="col-12">
 
-    <div class="card">
-      <div class="card-header">
+    <div class="card  ">
+      <div class="card-header ">
         <h2>My Reviews</h2>
       </div>
-      <ul class="list-group">
-        {{#each reviews}}
-        <li class="list-group-item">
+      <div class="row">
+            {{#each reviews}}
+      <div class="col-3 card-body">
+      <ul >
+    
+        <li>
           <h5>{{Destination.destinationCity}}, {{Destination.destinationCountry}}</h5>
           <hr>
           <h6>Category: {{titleCategory}} </h6>
           <p>{{review}}</p> 
           <h6>Rating: {{rating}}</h6>
         </li>
-        {{/each}}
+      
 
-      </ul>
+      </ul></div>  {{/each}}
+      </div>
     </div>
 
   </div>
