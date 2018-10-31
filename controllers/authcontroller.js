@@ -38,11 +38,11 @@ exports.signinFailed = function (req, res) {
   res.render("signinFailed");
  }
 
-//  exports.reviewsearch = function (req, res) {
+ exports.reviewsSearch = function (req, res) {
   
-//   var title = {
-//     pageTitle: "Reviews Search"
-//   };
-//   res.render("reviewsSearch", title);
-// }
+  // var title = {
+  //   pageTitle: "Reviews Search"
+  // };
+  res.render("reviewsSearch");
+}
 
