@@ -172,6 +172,7 @@ module.exports = function (app, passport) {
 
 
   app.get("/reviews-searching/:search", function (req, res) {
+   
     var searchedReview = req.params.search
     console.log("Searched Place");
     console.log(searchedReview);
@@ -188,8 +189,16 @@ module.exports = function (app, passport) {
       }
 
     }).then(function (searchedDestination) {
+      console.log("SearchedDestination");
       console.log(searchedDestination);
-      var searchedDestinationID = searchedDestination[0].id
+      if (searchedDestination === undefined || searchedDestination.length == 0) {
+        console.log("No Reviews");
+        res.json("empty");
+    }
+    else {
+      var searchedDestinationID = searchedDestination.map(function(res) {
+        return res.id
+      });
       console.log("Search Destination ID");
       console.log(searchedDestinationID);
       db.Reviews.findAll({
@@ -208,12 +217,14 @@ module.exports = function (app, passport) {
         };
         console.log("HANDLEBARS OBJ: ", hbsObject);
 
-        res.render("reviewsSearch", hbsObject);
+        res.json(hbsObject);
       }).catch(function (err) {
         return res.status(400).json({ message: "issues trying to connect to database" });
       });
-    });
+    }});
   });
+
+  
 
 
   //This route is just to get the user name to be displayed when logged in
