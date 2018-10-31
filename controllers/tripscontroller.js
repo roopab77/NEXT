@@ -1,7 +1,7 @@
 var db = require("../models");
 var authController = require('../controllers/authcontroller.js');
 
-
+const Op = require('Sequelize').Op;
 
 var ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
 module.exports = function (app, passport) {
@@ -123,19 +123,79 @@ module.exports = function (app, passport) {
 
       //This is the my profile route which will work only when signed in 
       app.get("/my-profile", ensureLoggedIn('/signin'), function (req, res) {
-        var render_obj = {
-          pageTitle: "My Profile"
-        };
         db.Trips.findAll({
           where: {
             UserId: req.user.id
           }
-        }).then(function (dbTrips) {
-          // res.json(dbTrips);
-          render_obj.trips = dbTrips;
-          res.render("my-profile", render_obj);
+        }).then(function(dbTrips) {
+          var tripsIdArray = dbTrips.map(function(res) {
+            return res.id;
+          })
+          console.log(`Trips IDs : ${tripsIdArray}`);
+          db.Destinations.findAll({
+            where: {
+              TripId: tripsIdArray
+            }
+          }).then(function(dbDestinations) {
+            var destIdArray = dbDestinations.map(function(res) {
+              return res.id;
+            })
+            console.log(`Dest IDs : ${destIdArray}`);
+            db.Reviews.findAll({
+              where: {
+                DestinationId: destIdArray
+              }
+            }).then(function(dbReviews) {
+              var render_obj = {
+                pageTitle: "My Profile",
+                trips: dbTrips,
+                reviews: dbReviews
+              };
+              res.render("my-profile", render_obj);
+            })
+          })
+        })
+      });
+
+          
+        
+
+      app.get("/reviews-searching/:search", function(req, res) {
+          var searchedReview = req.params.search
+          console.log("Searched Place");
+          console.log(searchedReview);
+          db.Destinations.findAll({
+            where: {
+              [Op.or]: [{destinationCountry: searchedReview}, {destinationState: searchedReview}, {destinationCity: searchedReview}],
+              // [req.params.destinationtype] : req.params.search
+            }
+            
+          }).then(function (searchedDestination) {
+            console.log(searchedDestination);
+            var searchedDestinationID = searchedDestination[0].id
+            console.log("Search Destination ID");
+            console.log(searchedDestinationID);
+            db.Reviews.findAll({
+              where: {
+                  DestinationId: searchedDestinationID
+                }
+            }).then(function (dbReviews) {
+             console.log("SEARCHED REVIEW");
+             console.log(searchedReview);
+              var hbsObject = {
+                
+                review: dbReviews
+
+              };
+              console.log("HANDLEBARS OBJ: ", hbsObject);
+              var title = {
+                pageTitle: "Reviews Search"
+              };
+              res.render("reviewsSearch", hbsObject);
+          });
         });
       });
+      
 
       //This route is just to get the user name to be displayed when logged in
       app.get("/loggedIn", function (req, res) {
