@@ -62,7 +62,7 @@ $(document).ready(function () {
       type: "GET"
     }).then(function (data) {
       console.log(data);
-      var destinationsTable = createDestTable(data);     
+      var destinationsTable = createDestTableForEmail(data);     
 
       $.get("/api/send-email", {
         to: to,
@@ -129,4 +129,24 @@ function createDestTable(data) {
   });
   tableforDestinations += '</table>';
   return tableforDestinations;
+}
+
+function createDestTableForEmail(data){
+  var tableforDestinations = `
+  <table class="table table-bordered table-light" value="table-destination" id="destinations-table"><thead><tr>
+        <th scope="col">Country/State/City</th> 
+        <th scope="col">From Date</th>
+        <th scope="col">To Date</th>
+        </tr></thead>`;
+    data.forEach(destination => {
+      tableforDestinations += `<tr>
+        <td>${destination.destinationCountry}/${destination.destinationState}/${destination.destinationCity}</td>     
+        <td>${destination.dateFrom}</td>
+        <td>${destination.dateTO}</td>
+           
+        </tr>`;
+    });
+    tableforDestinations += '</table>';
+    return tableforDestinations;
+
 }
