@@ -32,8 +32,11 @@
       <ul class="list-group">
         {{#each reviews}}
         <li class="list-group-item">
-          {{titleCategory}} &emsp;
-          {{rating}}
+          <h5>{{Destination.destinationCity}}, {{Destination.destinationCountry}}</h5>
+          <hr>
+          <h6>Category: {{titleCategory}} </h6>
+          <p>{{review}}</p> 
+          <h6>Rating: {{rating}}</h6>
         </li>
         {{/each}}
 
