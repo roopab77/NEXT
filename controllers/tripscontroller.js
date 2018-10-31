@@ -30,6 +30,14 @@ module.exports = function (app, passport) {
       res.render("reviews", title);
     });
 
+    //This route would create new destinations 
+    app.post("/reviews", function (req, res) {
+      db.Reviews.create(req.body)
+        .then(function (dbReviews) {          
+          res.json(dbReviews);
+        });
+    });
+
     //This route would create new trips 
     app.post("/api/trips", function (req, res) {
       req.body.UserId = req.user.id;
@@ -51,6 +59,7 @@ module.exports = function (app, passport) {
           res.json(dbDestinations);
         });
     });
+
     //This route would pull add destinations page
     app.get("/destinations/:params", function (req, res) {
         const tripdetails = req.params.params.split("&");
@@ -104,6 +113,17 @@ module.exports = function (app, passport) {
         });
       });
 
+      app.get("/getdestinations/:id", function (req, res) {
+        db.Destinations.findAll({
+          where: {
+            TripId: req.params.id
+          }
+        }).then(function (dbDestinations) {
+          console.log(dbDestinations);
+          res.json(dbDestinations);
+        });
+      });
+
       app.get("/cities/:id", function (req, res) {
         db.Cities.findAll({
           where: {
@@ -123,19 +143,40 @@ module.exports = function (app, passport) {
 
       //This is the my profile route which will work only when signed in 
       app.get("/my-profile", ensureLoggedIn('/signin'), function (req, res) {
-        var render_obj = {
-          pageTitle: "My Profile"
-        };
         db.Trips.findAll({
           where: {
             UserId: req.user.id
           }
-        }).then(function (dbTrips) {
-          // res.json(dbTrips);
-          render_obj.trips = dbTrips;
-          res.render("my-profile", render_obj);
-        });
+        }).then(function(dbTrips) {
+          var tripsIdArray = dbTrips.map(function(res) {
+            return res.id;
+          })
+          console.log(`Trips IDs : ${tripsIdArray}`);
+          db.Destinations.findAll({
+            where: {
+              TripId: tripsIdArray
+            }
+          }).then(function(dbDestinations) {
+            var destIdArray = dbDestinations.map(function(res) {
+              return res.id;
+            })
+            console.log(`Dest IDs : ${destIdArray}`);
+            db.Reviews.findAll({
+              where: {
+                DestinationId: destIdArray
+              }
+            }).then(function(dbReviews) {
+              var render_obj = {
+                pageTitle: "My Profile",
+                trips: dbTrips,
+                reviews: dbReviews
+              };
+              res.render("my-profile", render_obj);
+            })
+          })
+        })
       });
+
 
       //This route is just to get the user name to be displayed when logged in
       app.get("/loggedIn", function (req, res) {

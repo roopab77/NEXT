@@ -4,7 +4,7 @@ $(document).ready(function (){
   $.ajax("/countries", {
     type: "GET"
   }).then(function(data){ 
-    console.log(data);
+    //console.log(data);
     var countriestag = $("#countries");
     renderitems(data,countriestag);
   });
