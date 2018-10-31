@@ -4,6 +4,7 @@
       <th scope="col">Trip Name</th>
       <th scope="col">From </th>
       <th scope="col">To</th>
+      <th scope="col">Email</th>
     </tr>
   </thead>
   <tbody class="panel">
@@ -13,6 +14,13 @@
           {{tripName}}</button></th>
       <td>{{tripStartDate}}</td>
       <td>{{tripEndDate}}</td>
+      <td><div class="input-group mb-3">
+  <input type="text" class="form-control to-email-id" placeholder="Recipient's Email" aria-label="Recipient's Email" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary btn-send-email" value={{id}} type="button">Send</button>
+  </div>
+</div>
+      </td>
     </tr>
     {{/each}}
   </tbody>

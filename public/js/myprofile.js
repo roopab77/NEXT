@@ -1,22 +1,22 @@
 $(document).ready(function () {
 
   $(".get-destinations-all").on("click", function () {
-
     const tripID = $(this).val();
-    console.log(tripID);
     const url = "/getdestinations/" + tripID;
     var htmlTable = $(this).parent().closest('tr');
     console.log(htmlTable);
+    var destinationsTable;
 
     $.ajax(url, {
       type: "GET"
     }).then(function (data) {
       console.log(data);
-      var destinationsTable = createDestTable(data);
+      destinationsTable = createDestTable(data);
+      //console.log(destinationsTable); 
       $("#destinations-table").html(destinationsTable);
 
-      //htmlTable.append(destinationsTable);
     });
+
 
   });
 
@@ -51,7 +51,41 @@ $(document).ready(function () {
         console.log("created new review");
       });
   });
+
+  $(document).on('click', '.btn-send-email', function () {
+    const subject = "Trip Details";
+    var to = $(this).parent().parent().find(".to-email-id").val();
+    var email = $(this).parent().parent().find(".to-email-id");
+    const tripID = $(this).val();
+    const url = "/getdestinations/" + tripID;
+    $.ajax(url, {
+      type: "GET"
+    }).then(function (data) {
+      console.log(data);
+      var destinationsTable = createDestTable(data);     
+
+      $.get("/api/send-email", {
+        to: to,
+        subject: subject,
+        text: destinationsTable
+      }, function (data) {
+        if (data == "sent") {
+          console.log(data);
+          email.val("Message Sent");
+          
+        }
+
+      });
+
+    });
+  });
 });
+
+function getDestinations(tripID) {
+
+  console.log(destinationsTable);
+  return destinationsTable;
+}
 
 function createDestTable(data) {
   var tableforDestinations = `
