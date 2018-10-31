@@ -79,11 +79,22 @@ module.exports = function (app, passport) {
       });
 
       //This is the root route 
+
+      //This is the root route 
       app.get("/", function (req, res) {
-        var title = {
+        var render_obj = {
           pageTitle: "New Exciting Trips"
         };
-        res.render("index", title);
+        db.Reviews.findAll({
+          limit: 5,
+          order: [
+            ['createdAt', 'DESC']
+          ]
+        }).then(function(dbRecentReviews) {
+          render_obj.reviews = dbRecentReviews;
+          res.render("index", render_obj);
+
+        });
       });
 
       //This route would pull the countries from the database
@@ -123,18 +134,38 @@ module.exports = function (app, passport) {
 
       //This is the my profile route which will work only when signed in 
       app.get("/my-profile", ensureLoggedIn('/signin'), function (req, res) {
-        var render_obj = {
-          pageTitle: "My Profile"
-        };
         db.Trips.findAll({
           where: {
             UserId: req.user.id
           }
-        }).then(function (dbTrips) {
-          // res.json(dbTrips);
-          render_obj.trips = dbTrips;
-          res.render("my-profile", render_obj);
-        });
+        }).then(function(dbTrips) {
+          var tripsIdArray = dbTrips.map(function(res) {
+            return res.id;
+          })
+          console.log(`Trips IDs : ${tripsIdArray}`);
+          db.Destinations.findAll({
+            where: {
+              TripId: tripsIdArray
+            }
+          }).then(function(dbDestinations) {
+            var destIdArray = dbDestinations.map(function(res) {
+              return res.id;
+            })
+            console.log(`Dest IDs : ${destIdArray}`);
+            db.Reviews.findAll({
+              where: {
+                DestinationId: destIdArray
+              }
+            }).then(function(dbReviews) {
+              var render_obj = {
+                pageTitle: "My Profile",
+                trips: dbTrips,
+                reviews: dbReviews
+              };
+              res.render("my-profile", render_obj);
+            })
+          })
+        })
       });
 
       //This route is just to get the user name to be displayed when logged in
