@@ -61,6 +61,7 @@ function getStates(selectedID)
     type: "GET"
   }).then(function(data){
     var statesstag = $("#states");
+    console.log(data);
     renderitems(data,statesstag);
   });
 

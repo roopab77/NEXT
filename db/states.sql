@@ -6,7 +6,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-CREATE TABLE IF NOT EXISTS `states` (
+CREATE TABLE IF NOT EXISTS `States` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `country_id` int(11) NOT NULL DEFAULT '1',
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `states` (
 
 
 
-INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
+INSERT INTO `States` (`id`, `name`, `country_id`) VALUES
 (1, 'Andaman and Nicobar Islands', 101),
 (2, 'Andhra Pradesh', 101),
 (3, 'Arunachal Pradesh', 101),
@@ -2188,7 +2188,7 @@ INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
 (2179, 'Rivercess', 123),
 (2180, 'Sinoe', 123),
 (2181, 'Ajdabiya', 124);
-INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
+INSERT INTO `States` (`id`, `name`, `country_id`) VALUES
 (2182, 'Fezzan', 124),
 (2183, 'Banghazi', 124),
 (2184, 'Darnah', 124),
