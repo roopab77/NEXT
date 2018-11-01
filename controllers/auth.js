@@ -5,12 +5,12 @@ module.exports = function (app, passport) {
   app.get('/signup', authController.signup);
   app.get('/signin', authController.signin);
   app.post('/signup', passport.authenticate('local-signup', {
-    successReturnToOrRedirect: '/dashboard',
+    successReturnToOrRedirect: '/my-profile',
     failureRedirect: '/signup'
   }));
-  app.get('/dashboard', isLoggedIn, authController.dashboard);
+  app.get('/my-profile', isLoggedIn, authController.dashboard);
   app.post('/signin', passport.authenticate('local-signin', {
-    successReturnToOrRedirect: '/dashboard',
+    successReturnToOrRedirect: '/my-profile',
     failureRedirect: '/signinFailed'
   }));
   function isLoggedIn(req, res, next) {

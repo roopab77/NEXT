@@ -17,12 +17,12 @@ exports.signin = function (req, res) {
 }
 
 
-exports.dashboard = function (req, res) {
-  var title = {
-    pageTitle: "Dash Board"
-  };
-  res.render('dashboard',title);
-}
+// exports.dashboard = function (req, res) {
+//   var title = {
+//     pageTitle: "Dash Board"
+//   };
+//   res.render('dashboard',title);
+// }
 
 exports.logout = function(req, res) {
  

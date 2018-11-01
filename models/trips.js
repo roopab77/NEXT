@@ -19,17 +19,21 @@ module.exports = function (sequelize, DataTypes) {
     },
     tripEndDate: {
       type: DataTypes.DATEONLY,
-      defaultValue: DataTypes.NOW,
-      allowNull: false,
+      // defaultValue: DataTypes.NOW,
+      allowNull: false
+      // validate: {min: this.tripStartDate}
+    }
+  },
+    {
       validate: {
-        isAfterFrom: function(tripStartDate) {
-          if (this.tripStartDate >= tripEndDate) {
-            throw new error ("To date must be same or greater than start date")
+        datescheck () {
+          if (this.tripStartDate >= this.tripEndDate) {
+            throw new Error("To date must be same or greater than start date")
           }
         }
       }
-    }
-  });
+    });
+  
 
   Trips.associate = function (models) {
     // We're saying that a DESTINATIONS should belong to a trip

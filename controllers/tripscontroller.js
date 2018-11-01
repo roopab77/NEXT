@@ -126,7 +126,7 @@ module.exports = function (app, passport) {
   //This is the root route 
   app.get("/", function (req, res) {
     var render_obj = {
-      pageTitle: "New Exciting Trips"
+      pageTitle: ""
     };
     db.Reviews.findAll({
       limit: 10,
@@ -282,11 +282,11 @@ module.exports = function (app, passport) {
   });
 
   //This is just a placeholder route when signed up or signed in will go here 
-  app.get('/dashboard', isLoggedIn, function (req, res) {
+  app.get('/my-profile', isLoggedIn, function (req, res) {
     var username = "";
     username = req.user.firstname + " " + req.user.lastname;
-    res.render('dashboard', {
-      pageTitle: "DASH BOARD",
+    res.render('my-profile', {
+      pageTitle: "Profile",
       username: username
     });
   });
