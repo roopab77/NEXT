@@ -32,10 +32,12 @@ $(document).ready(function (){
         //console.log(response);
         $("#dateFrom").val("");
         $("#dateTo").val("");
-        $("#cities option:selected").text("");
-        $("#states option:selected").text("");
-        $("#countries option:selected").text("");
-
+       // $("#cities option:selected").text("");
+        $('#cities option[value="0"]').attr("selected",true);
+        //$("#states option:selected").text("");
+        $('#states option[value="0"]').attr("selected",true);
+        //$("#countries option:selected").text("");
+        $('#countries option[value="0"]').attr("selected",true);
       });
   });
 
@@ -88,7 +90,7 @@ function renderitems(data,htmlitem) {
   }
   $(".hidden").removeClass("hidden");
   var rowsToAdd = [];
-  rowsToAdd.push(createRow("..."));
+  rowsToAdd.push(createRow({id:"0",name:"..."}));
   for (var i = 0; i < data.length; i++) {
     
     rowsToAdd.push(createRow(data[i]));
