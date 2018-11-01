@@ -14,18 +14,23 @@ body {
 .jumbotron {
   /* background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #444349 75%); */
 
-  /* height: 0; */
-  width: 100%;
-  padding-bottom: 10px;
-  /* position: relative; */
-  padding: 40% 0 0;
+   /* height: 10px; */
+  /* width: 100%; */
+  /* padding-bottom: 10px; */
+  position: relative;
+  height: 35vh;
+
+  /* padding: 40% 0 0; */
   /* margin-bottom: 10px; */
   color: inherit;
-  background-color: #f9f9f9;
+  background-color: rgb(232,232,232);
   text-align: center;
-  background-size: cover;
-  background: contain;
+  /* background-size: cover; */
+  /* background: contain; */
   background-image: url(../images/adventure-travel.jpg);
+  background-repeat: no-repeat;
+  background-position-x: center;
+
   /* background-position: center; */
 
 }
@@ -33,8 +38,11 @@ body {
 .jumbotron-text {
   text-align: top;
   color: green;
-  padding: 10px;
-  position: relative;
+
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
 
 }
 
