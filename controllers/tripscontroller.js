@@ -155,6 +155,7 @@ module.exports = function (app, passport) {
         country_id: req.params.id
       }
     }).then(function (dbStates) {
+      console.log(dbStates);
       res.json(dbStates);
     });
   });
