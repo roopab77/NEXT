@@ -20,9 +20,9 @@ $(document).ready(function () {
                               console.log(data[key]);
                               data[key].forEach(review=> {
                                     console.log(review);
-                                    $("#list-group1").append("<li>" + review.titleCategory + "</li>");
-                                    $("#list-group2").append("<li>" + review.rating + "</li>");
-                                    $("#list-group3").append("<li>" + review.review + "</li>")
+                                    $("#list-group1").append("<li>" + review.titleCategory + "</li><br>");
+                                    $("#list-group2").append("<li>" + review.rating + "</li><br>");
+                                    $("#list-group3").append("<li>" + review.review + "</li><br>")
                               });
                         
                         

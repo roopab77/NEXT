@@ -126,7 +126,7 @@ module.exports = function (app, passport) {
   //This is the root route 
   app.get("/", function (req, res) {
     var render_obj = {
-      pageTitle: "New Exciting Trips"
+      pageTitle: ""
     };
     db.Reviews.findAll({
       limit: 10,
