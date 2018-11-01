@@ -20,7 +20,14 @@ module.exports = function (sequelize, DataTypes) {
     tripEndDate: {
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isAfterFrom: function(tripStartDate) {
+          if (this.tripStartDate >= tripEndDate) {
+            throw new error ("To date must be same or greater than start date")
+          }
+        }
+      }
     }
   });
 
